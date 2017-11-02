@@ -35,9 +35,11 @@ namespace Donray
             var br = new Vector2(Max.x, Min.y);
             var tr = new Vector2(Max.x, Max.y);
             var tl = new Vector2(Min.x, Max.y);
+            Debug.DrawLine(bl, new Vector2(bl.x, 0));
             Debug.DrawLine(bl, br, Color.cyan);
             Debug.DrawLine(bl, tl, Color.cyan);
             Debug.DrawLine(br, tr, Color.cyan);
+            Debug.DrawLine(br, new Vector2(br.x, 0));
             Debug.DrawLine(tl, tr, Color.cyan);
         }
     }
