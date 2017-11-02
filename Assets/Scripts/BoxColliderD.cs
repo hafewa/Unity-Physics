@@ -6,22 +6,20 @@ namespace Donray
 {
     public class BoxColliderD : MonoBehaviour
     {
-        public Transform FirstTransform, SecondTransform;
         [SerializeField]
-        public AABB_A First, Second;
+        public AABB collider;
+
+        public int Width, Height;
+
+        void Start()
+        {
+            collider = ScriptableObject.CreateInstance<AABB>();
+            collider.Initialize(Width, Height, this.transform);
+        }
         // Use this for initialization
         void Update()
         {
-            Test(First, FirstTransform);
-            Test(Second, SecondTransform);
-            if (Utilites.TestOverLap(First, Second))
-                Debug.Log("Worked");
-        }
-        static void Test(AABB_A name, Transform transform)
-        {
-            name.Min = transform.position - (transform.localScale / 2);
-            name.Max = transform.position + (transform.localScale / 2);
-            Debug.DrawLine(name.Min, name.Max, Color.white);
+            collider.UpdateAabb(Width, Height);
         }
     }
 }
