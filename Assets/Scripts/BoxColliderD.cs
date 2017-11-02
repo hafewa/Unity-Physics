@@ -8,22 +8,20 @@ namespace Donray
     {
         public Transform FirstTransform, SecondTransform;
         [SerializeField]
-        public AABB_A First;
-        [SerializeField]
-        public AABB_A Second;
-
+        public AABB_A First, Second;
         // Use this for initialization
         void Update()
         {
-            First.Min = (FirstTransform.position - FirstTransform.localScale);
-            First.Max = (FirstTransform.position + FirstTransform.localScale);
-            Debug.DrawLine(First.Min, First.Max, Color.cyan);
-            Second.Min = (SecondTransform.position - SecondTransform.localScale) / 5;
-            Second.Max = (SecondTransform.position + SecondTransform.localScale) / 5;
-
+            Test(First, FirstTransform);
+            Test(Second, SecondTransform);
             if (Utilites.TestOverLap(First, Second))
                 Debug.Log("Worked");
         }
- 
+        static void Test(AABB_A name, Transform transform)
+        {
+            name.Min = transform.position - (transform.localScale / 2);
+            name.Max = transform.position + (transform.localScale / 2);
+            Debug.DrawLine(name.Min, name.Max, Color.white);
+        }
     }
 }
