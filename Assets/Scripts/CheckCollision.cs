@@ -50,15 +50,15 @@ public class CheckCollision : MonoBehaviour
 
             tempList.AddRange(ActiveList);
 
-            foreach (var boxColliderD in ActiveList)
+            foreach (var current in ActiveList)
             {
                 var check = AxisCheck == Axis.X
-                    ? AxisList[i].Min.x > boxColliderD.Max.x
-                    : AxisList[i].Min.y > boxColliderD.Max.y;
+                    ? AxisList[i].Min.x > current.Max.x
+                    : AxisList[i].Min.y > current.Max.y;
 
                 if (check)
                 {
-                    tempList.Remove(boxColliderD);
+                    tempList.Remove(current);
                 }
                 else
                 {
@@ -66,7 +66,7 @@ public class CheckCollision : MonoBehaviour
                     tempList.Add(AxisList[i]);
                     var pair = new ReportedPair
                     {
-                        Object1 = boxColliderD,
+                        Object1 = current,
                         Object2 = AxisList[i]
                     };
                     //Add Pair to pairsList
@@ -87,6 +87,8 @@ public class CheckCollision : MonoBehaviour
         public AABB Object2;
     }
 }
+#region OldCode
+
 //var axis = new List<BoxColliderD>();
 //axis.Sort((a, b) => a.collider.Min.y.CompareTo(b.collider.Min.y));
 //foreach (var p in pairsList)
@@ -122,3 +124,4 @@ public class CheckCollision : MonoBehaviour
 //    activeList.Clear();
 //    activeList.AddRange(tempList);
 //}
+#endregion

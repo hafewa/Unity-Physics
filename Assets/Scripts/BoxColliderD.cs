@@ -11,13 +11,13 @@ namespace Donray
 
         public int Width, Height;
 
-        void Start()
+        public void Start()
         {
             collider = ScriptableObject.CreateInstance<AABB>();
             collider.Initialize(Width, Height, this.transform);
         }
         // Use this for initialization
-        void Update()
+        public void Update()
         {
             collider.UpdateAabb(Width, Height);
         }
