@@ -664,6 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AxisCheck: 0
   AxisList: []
+  ActiveList: []
   PairsList: []
 --- !u!114 &745985396
 MonoBehaviour:
@@ -678,6 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AxisCheck: 1
   AxisList: []
+  ActiveList: []
   PairsList: []
 --- !u!4 &745985397
 Transform:
@@ -738,7 +740,7 @@ GameObject:
   m_Layer: 0
   m_Name: C
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -754,8 +756,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
-  Width: 5
-  Height: 5
+  Width: 1
+  Height: 1
 --- !u!4 &1127241844
 Transform:
   m_ObjectHideFlags: 0
@@ -763,7 +765,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127241842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.59, y: 0.6209461, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.6209461, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -781,7 +783,7 @@ GameObject:
   m_Layer: 0
   m_Name: A
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -797,8 +799,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
-  Width: 2
-  Height: 2
+  Width: 1
+  Height: 1
 --- !u!4 &1299432816
 Transform:
   m_ObjectHideFlags: 0
@@ -806,7 +808,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1299432814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.16, y: 0.6209461, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0.6209461, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -981,7 +983,7 @@ GameObject:
   m_Layer: 0
   m_Name: B
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1006,7 +1008,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1701450696}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.48, y: 0.6209461, z: 0}
+  m_LocalPosition: {x: -1, y: 0.6209461, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

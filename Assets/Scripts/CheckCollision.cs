@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class CheckCollision : MonoBehaviour
 {
-    public enum AXIS
+    public enum Axis
     {
-        X,
-        Y
+        X = 0,
+        Y = 1
     }
 
-    public AXIS AxisCheck;
+    public List<AABB> ActiveList;
+
+    public Axis AxisCheck;
     public List<AABB> AxisList;
     public List<ReportedPair> PairsList;
 
@@ -33,24 +35,24 @@ public class CheckCollision : MonoBehaviour
             colliderB.UpdateAabb(colliderB.Width, colliderB.Height);
 
         //Sort the list
-        if (AxisCheck == AXIS.X)
+        if (AxisCheck == Axis.X)
             AxisList.Sort((ob1, ob2) => ob1.Min.x.CompareTo(ob2.Min.x));
         else
             AxisList.Sort((ob1, ob2) => ob1.Min.y.CompareTo(ob2.Min.y));
         //Create new active list and add the first item from AxisList
-        var activeList = new List<AABB> {AxisList[0]};
+        ActiveList = new List<AABB> {AxisList[0]};
         for (var i = 1; i < AxisList.Count; i++)
         {
             var tempList = new List<AABB>();
 
-            if (activeList.Count == 0)
-                activeList.Add(AxisList[i - 1]);
+            if (ActiveList.Count == 0)
+                ActiveList.Add(AxisList[i - 1]);
 
-            tempList.AddRange(activeList);
+            tempList.AddRange(ActiveList);
 
-            foreach (var boxColliderD in activeList)
+            foreach (var boxColliderD in ActiveList)
             {
-                var check = AxisCheck == AXIS.X
+                var check = AxisCheck == Axis.X
                     ? AxisList[i].Min.x > boxColliderD.Max.x
                     : AxisList[i].Min.y > boxColliderD.Max.y;
 
@@ -68,15 +70,14 @@ public class CheckCollision : MonoBehaviour
                         Object2 = AxisList[i]
                     };
                     //Add Pair to pairsList
-                    PairsList.Add(pair);
+                    if (!PairsList.Contains(pair) &&
+                        !PairsList.Contains(new ReportedPair {Object1 = pair.Object2, Object2 = pair.Object1}))
+                        PairsList.Add(pair);
                 }
             }
-            activeList.Clear();
-            activeList.AddRange(tempList);
+            ActiveList.Clear();
+            ActiveList.AddRange(tempList);
         }
-        if (PairsList.Count == 0)
-            return;
-        Debug.Log(PairsList.Count);
     }
 
     [Serializable]
