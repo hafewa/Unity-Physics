@@ -13,10 +13,9 @@ public class CheckCollision : MonoBehaviour
     }
 
     public List<AABB> ActiveList;
-
-    public Axis AxisCheck;
     public List<AABB> AxisList;
     public List<ReportedPair> PairsList;
+    public Axis AxisCheck;
 
     public void Start()
     {
