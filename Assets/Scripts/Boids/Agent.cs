@@ -12,36 +12,38 @@ namespace Donray
         [SerializeField] protected float Mass;
 
         [SerializeField] protected float MaxSpeed;
-
-        [SerializeField] public Vector3 position;
-
-        [SerializeField] protected Vector3 Velocity;
-
-        public abstract Vector3 UpdateAgent(float deltaTime);
         public Transform Owner;
 
-        protected Vector3 Position
-        {
-            get
-            {
-                return position;
-            }
+        [SerializeField] private Vector3 position;
 
-            set
-            {
-                position = value;
-            }
+        [SerializeField] private Vector3 velocity;
+
+        public Vector3 Position
+        {
+            get { return position; }
+
+            set { position = value; }
         }
 
-        public void OnStart(Transform owner)
+        public Vector3 Velocity
+        {
+            get { return velocity; }
+
+            set { velocity = value; }
+        }
+
+        public abstract Vector3 UpdateAgent(float deltaTime);
+
+        public void Create(Transform owner)
         {
             Owner = owner;
             Mass = 1;
             Velocity = Utility.RandomVector3;
             Acceleration = Utility.RandomVector3;
             Position = owner.position;
-            MaxSpeed = 5;
+            MaxSpeed = 10;
         }
+
         public bool AddForce(float mag, Vector3 direction)
         {
             if (mag == 0)

@@ -1,53 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Donray
 {
+    [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
     public class BoidBehaviour : AgentBehaviour
     {
-        public float SFac;
-        public Boid boid
+        private Agent flocking;
+        public static float DFac, AFac, CFac;
+        public void Start()
         {
-            get { return (Boid)agent; }
+            flocking = ScriptableObject.CreateInstance<Boid>();
         }
         public void SetBoid(Boid b)
         {
             agent = b;
-            agent.OnStart(transform);
-        }
-
-        private Vector3 Seperation()
-        {
-            var flock = GameController.Agents;
-            var seperation = Vector3.zero;
-            foreach (var bi in flock)
-            {
-                foreach (var bj in flock)
-                {
-                    if (bj == this)
-                        continue;
-                    var dist = Vector3.Distance(bi.position, bj.position);
-                    if (dist < 5)
-                    {
-                        var dir = (bj.position - bi.position).normalized;
-                        seperation += dir * SFac;
-                    }
-                }
-            }
-            return seperation;
+            agent.Create(transform);
         }
         public void Update()
         {
-            var boundray = Vector3.zero;
+            var boundry = Vector3.zero;
             var dist = Vector3.Distance(transform.position, Vector3.zero);
-            if (dist > 15f)
+            if (dist > 10f)
             {
-                GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
-                boundray = dist * (Vector3.zero - transform.position);
+                GetComponent<MeshRenderer>().material.color = Color.red;
+                boundry = dist * (Vector3.zero - transform.position);
             }
-            agent.AddForce(boundray.magnitude, boundray.normalized);
-            agent.AddForce(Seperation().magnitude, Seperation().normalized);
+            agent.AddForce(boundry.magnitude, boundry.normalized);
+
+            var v1 = ((Boid)flocking).Alignment();
+            var v2 = ((Boid)flocking).Dispersion();
+            var v3 = ((Boid)flocking).Cohesion();
+            agent.AddForce(AFac, v1);
+            agent.AddForce(DFac, v2);
+            agent.AddForce(CFac, v3); 
         }
         public void LateUpdate()
         {
