@@ -35,8 +35,11 @@ namespace Donray
             var v2 = ((Boid)flocking).Dispersion(agent as Boid);
             var v3 = ((Boid)flocking).Cohesion(agent as Boid);
             agent.AddForce(AFac, v1);
+            Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);
             agent.AddForce(DFac, v2);
-            agent.AddForce(CFac, v3); 
+            Debug.DrawLine(agent.Position, agent.Position + v2.normalized, Color.yellow);
+            agent.AddForce(CFac, v3);
+            Debug.DrawLine(agent.Position, agent.Position + v3.normalized, Color.red);
         }
         public void LateUpdate()
         {
