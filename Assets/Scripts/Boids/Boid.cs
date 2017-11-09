@@ -23,50 +23,55 @@ namespace Donray
             Neighbors = GameController.Agents;
         }
 
-        public Vector3 Dispersion()
+        public Vector3 Dispersion(Boid b)
         {
             Neighbors = GameController.Agents;
-            var seperationForce = Vector3.zero;
             if (Neighbors.Count <= 0)
                 return Vector3.zero;
+            var seperationForce = Vector3.zero;
             foreach (var neighbor in Neighbors)
             {
-                var dist = Vector3.Distance(this.Position, neighbor.Position);
-
+                if (neighbor == b) continue;
+                var dist = Vector3.Distance(b.Position, neighbor.Position);
                 if (dist < 10f)
                 {
-                    var dir = (this.Position - neighbor.Position).normalized;
+                    var dir = (b.Position - neighbor.Position).normalized;
                     seperationForce += dir;
-                }   
+                }
             }
             return seperationForce;
         }
 
-        public Vector3 Cohesion()
+        public Vector3 Cohesion(Boid b)
         {
             Neighbors = GameController.Agents;
-            var cohesionForce = Vector3.zero;
-            
-            foreach (var neighbor in Neighbors)
-            {
-                cohesionForce += neighbor.Position;
-            }
-            cohesionForce /= Neighbors.Count - 1;
-            return cohesionForce;
-        }
-
-        public Vector3 Alignment()
-        {
-            Neighbors = GameController.Agents;
-            var alignmentForce = Vector3.zero;
             if (Neighbors.Count <= 0)
                 return Vector3.zero;
+            var cohesionForce = Vector3.zero;
             foreach (var neighbor in Neighbors)
             {
+                if (neighbor == b) continue;
+                cohesionForce += neighbor.Position;
+            }
+            cohesionForce /= Neighbors.Count;
+
+            return (cohesionForce - b.Position) / 100;
+        }
+
+        public Vector3 Alignment(Boid b)
+        {
+            Neighbors = GameController.Agents;
+            if (Neighbors.Count <= 0)
+                return Vector3.zero;
+            var alignmentForce = Vector3.zero;
+            foreach (var neighbor in Neighbors)
+            {
+                if (neighbor == b) continue;
                 alignmentForce += neighbor.Velocity;
             }
             alignmentForce /= Neighbors.Count - 1;
-            return alignmentForce;
+          
+            return (alignmentForce - b.Velocity) / 8;
         }
     }
 

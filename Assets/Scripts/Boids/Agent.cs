@@ -39,7 +39,7 @@ namespace Donray
             Owner = owner;
             Mass = 1;
             Velocity = Utility.RandomVector3;
-            Acceleration = Utility.RandomVector3;
+            Acceleration = Vector3.zero;
             Position = owner.position;
             MaxSpeed = 10;
         }

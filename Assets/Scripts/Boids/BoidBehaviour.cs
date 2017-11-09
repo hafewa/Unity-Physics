@@ -31,9 +31,9 @@ namespace Donray
             }
             agent.AddForce(boundry.magnitude, boundry.normalized);
 
-            var v1 = ((Boid)flocking).Alignment();
-            var v2 = ((Boid)flocking).Dispersion();
-            var v3 = ((Boid)flocking).Cohesion();
+            var v1 = ((Boid)flocking).Alignment(agent as Boid);
+            var v2 = ((Boid)flocking).Dispersion(agent as Boid);
+            var v3 = ((Boid)flocking).Cohesion(agent as Boid);
             agent.AddForce(AFac, v1);
             agent.AddForce(DFac, v2);
             agent.AddForce(CFac, v3); 
