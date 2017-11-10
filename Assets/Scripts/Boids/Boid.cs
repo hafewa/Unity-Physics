@@ -16,20 +16,27 @@ namespace Donray
             return Position;
         }
 
-        public List<Agent> Neighbors;
-
-        public void Start()
+        public List<Agent> NeighborsOld;
+        public static List<Boid> Neighbors(Boid b)
         {
-            Neighbors = GameController.Agents;
+            var neighbors = new List<Boid>();
+            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 10);
+            agentss.ForEach(a => neighbors.Add(a as Boid));
+            return neighbors;
         }
+
+        //public void Start()
+        //{
+        //    //Neighbors = GameController.Agents;
+        //}
 
         public Vector3 Dispersion(Boid b)
         {
-            Neighbors = GameController.Agents;
-            if (Neighbors.Count <= 0)
+            //Neighbors = GameController.Agents;
+            if (Neighbors(b).Count <= 0)
                 return Vector3.zero;
             var seperationForce = Vector3.zero;
-            foreach (var neighbor in Neighbors)
+            foreach (var neighbor in Neighbors(b))
             {
                 if (neighbor == b) continue;
                 var dist = Vector3.Distance(b.Position, neighbor.Position);
@@ -44,32 +51,32 @@ namespace Donray
 
         public Vector3 Cohesion(Boid b)
         {
-            Neighbors = GameController.Agents;
-            if (Neighbors.Count <= 0)
+            //Neighbors = GameController.Agents;
+            if (Neighbors(b).Count <= 0)
                 return Vector3.zero;
             var cohesionForce = Vector3.zero;
-            foreach (var neighbor in Neighbors)
+            foreach (var neighbor in Neighbors(b))
             {
                 if (neighbor == b) continue;
                 cohesionForce += neighbor.Position;
             }
-            cohesionForce /= Neighbors.Count;
+            cohesionForce /= Neighbors(b).Count;
 
             return (cohesionForce - b.Position) / 100;
         }
 
         public Vector3 Alignment(Boid b)
         {
-            Neighbors = GameController.Agents;
-            if (Neighbors.Count <= 1)
+            //Neighbors = GameController.Agents;
+            if (Neighbors(b).Count <= 1)
                 return Vector3.zero;
             var alignmentForce = Vector3.zero;
-            foreach (var neighbor in Neighbors)
+            foreach (var neighbor in Neighbors(b))
             {
                 if (neighbor == b) continue;
                 alignmentForce += neighbor.Velocity;
             }
-            alignmentForce /= Neighbors.Count - 1;
+            alignmentForce /= Neighbors(b).Count - 1;
           
             return (alignmentForce - b.Velocity) / 8;
         }

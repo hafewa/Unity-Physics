@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Donray
 {
@@ -11,9 +10,11 @@ namespace Donray
     {
         private Agent _flocking;
         public static float DFac, AFac, CFac;
+        public static float BoundaryDist;
         public void Start()
         {
             _flocking = ScriptableObject.CreateInstance<Boid>();
+            BoundaryDist = 10;
         }
         public void SetBoid(Boid b)
         {
@@ -22,18 +23,20 @@ namespace Donray
         }
         public void Update()
         {
-            var boundry = Vector3.zero;
+            var boundary = Vector3.zero;
             var dist = Vector3.Distance(transform.position, Vector3.zero);
-            if (dist > 10f)
+            if (dist > BoundaryDist)
             {
-                GetComponent<MeshRenderer>().material.color = Color.red;
-                boundry = dist * (Vector3.zero - transform.position);
+                GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0, 0, 0, 0, 0, 1);
+
+                boundary = dist * (Vector3.zero - transform.position);
             }
-            agent.AddForce(boundry.magnitude, boundry.normalized);
+            agent.AddForce(boundary.magnitude, boundary.normalized);
 
             var v1 = ((Boid)_flocking).Alignment(agent as Boid);
             var v2 = ((Boid)_flocking).Dispersion(agent as Boid);
             var v3 = ((Boid)_flocking).Cohesion(agent as Boid);
+
             agent.AddForce(AFac, v1);
             Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);
             agent.AddForce(DFac, v2);

@@ -26,23 +26,24 @@ namespace Donray
     public class GameController : MonoBehaviour
     {
         public int Count;
-        public Slider Dis, Coh, Align;
+        public Slider Dis, Coh, Align, Boundry;
         public Text BoidsText;
         public static List<AgentBehaviour> AgentBehaviours;
         public static List<Agent> Agents;
-
         public void Start()
         {
             Count = 0;
             Create();
-            BoidsText.text = "Boids: " + Count.ToString();
+            BoidsText.text = "Boids: " + Count;
+            Boundry.value = BoidBehaviour.BoundaryDist;
         }
         public void Update()
         {
-            BoidsText.text = "Boids: " + Count.ToString();
+            BoidsText.text = "Boids: " + Count;
             BoidBehaviour.DFac = Dis.value;
             BoidBehaviour.CFac = Coh.value;
             BoidBehaviour.AFac = Align.value;
+            BoidBehaviour.BoundaryDist = Boundry.value;
         }
         #region Helpers
         [ContextMenu("Create")]
@@ -87,8 +88,8 @@ namespace Donray
             Coh.gameObject.SetActive(false);
             Align.gameObject.SetActive(false);
         }
-        [ContextMenu("Add 1")]
-        public void AddOne()
+        [ContextMenu("Add")]
+        public void Add(int amount)
         {
             foreach (var v in AgentBehaviours)
             {
@@ -96,31 +97,7 @@ namespace Donray
             }
             Agents.Clear();
             AgentBehaviours.Clear();
-            Count += 1;
-            Create();
-        }
-        [ContextMenu("Add 5")]
-        public void AddFive()
-        {
-            foreach (var v in AgentBehaviours)
-            {
-                DestroyImmediate(v.gameObject);
-            }
-            Agents.Clear();
-            AgentBehaviours.Clear();
-            Count += 5;
-            Create();
-        }
-        [ContextMenu("Add 10")]
-        public void AddTen()
-        {
-            foreach (var v in AgentBehaviours)
-            {
-                DestroyImmediate(v.gameObject);
-            }
-            Agents.Clear();
-            AgentBehaviours.Clear();
-            Count += 10;
+            Count += amount;
             Create();
         }
         #endregion Helpers
