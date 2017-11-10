@@ -11,7 +11,7 @@ namespace Donray
 
         [SerializeField] protected float Mass;
 
-        [SerializeField] protected float MaxSpeed;
+        [SerializeField] public float MaxSpeed;
         public Transform Owner;
 
         [SerializeField] private Vector3 _position;

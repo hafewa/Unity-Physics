@@ -27,7 +27,7 @@ namespace Donray
             var dist = Vector3.Distance(transform.position, Vector3.zero);
             if (dist > BoundaryDist)
             {
-                GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0, 0, 0, 0, 0, 1);
+                GetComponent<MeshRenderer>().material.color = Color.cyan;
 
                 boundary = dist * (Vector3.zero - transform.position);
             }
@@ -43,6 +43,8 @@ namespace Donray
             Debug.DrawLine(agent.Position, agent.Position + v2.normalized, Color.yellow);
             agent.AddForce(CFac, v3);
             Debug.DrawLine(agent.Position, agent.Position + v3.normalized, Color.red);
+
+            transform.up = agent.Velocity;
         }
         public void LateUpdate()
         {

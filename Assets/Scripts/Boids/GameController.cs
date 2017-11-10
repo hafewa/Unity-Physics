@@ -25,8 +25,9 @@ namespace Donray
     }
     public class GameController : MonoBehaviour
     {
+        public GameObject agentPrefab;
         public int Count;
-        public Slider Dis, Coh, Align, Boundry;
+        public Slider Dis, Coh, Align, Boundry, MaxSpeed;
         public Text BoidsText;
         public static List<AgentBehaviour> AgentBehaviours;
         public static List<Agent> Agents;
@@ -44,11 +45,16 @@ namespace Donray
             BoidBehaviour.CFac = Coh.value;
             BoidBehaviour.AFac = Align.value;
             BoidBehaviour.BoundaryDist = Boundry.value;
+            foreach (var agent in Agents)
+            {
+                agent.MaxSpeed = MaxSpeed.value;
+            }
         }
         #region Helpers
         [ContextMenu("Create")]
         public void Create()
         {
+            MaxSpeed.gameObject.SetActive(true);
             Dis.gameObject.SetActive(true);
             Coh.gameObject.SetActive(true);
             Align.gameObject.SetActive(true);
@@ -56,13 +62,12 @@ namespace Donray
             AgentBehaviours = new List<AgentBehaviour>();
             for (var i = 0; i < Count; i++)
             {
-                var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                //var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                var go = Instantiate(agentPrefab) as GameObject;
                 go.transform.SetParent(transform);
                 go.name = string.Format("{0} {1}", "Agent: ", i);
                 go.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-                go.AddComponent<Rigidbody>();
-                go.AddComponent<SphereCollider>();
-                go.GetComponent<SphereCollider>().isTrigger = true;
+                go.transform.localScale = new Vector3(50f, 50f, 50f);
 
                 var behaviour = go.AddComponent<BoidBehaviour>();
                 var boid = ScriptableObject.CreateInstance<Boid>();
@@ -84,6 +89,7 @@ namespace Donray
             Count = 0;
             Agents.Clear();
             AgentBehaviours.Clear();
+            MaxSpeed.gameObject.SetActive(false);
             Dis.gameObject.SetActive(false);
             Coh.gameObject.SetActive(false);
             Align.gameObject.SetActive(false);

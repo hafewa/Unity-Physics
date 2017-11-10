@@ -20,7 +20,7 @@ namespace Donray
         public static List<Boid> Neighbors(Boid b)
         {
             var neighbors = new List<Boid>();
-            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 10);
+            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 20);
             agentss.ForEach(a => neighbors.Add(a as Boid));
             return neighbors;
         }
