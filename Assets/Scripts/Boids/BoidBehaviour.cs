@@ -9,16 +9,16 @@ namespace Donray
     [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
     public class BoidBehaviour : AgentBehaviour
     {
-        private Agent flocking;
+        private Agent _flocking;
         public static float DFac, AFac, CFac;
         public void Start()
         {
-            flocking = ScriptableObject.CreateInstance<Boid>();
+            _flocking = ScriptableObject.CreateInstance<Boid>();
         }
         public void SetBoid(Boid b)
         {
             agent = b;
-            agent.Create(transform);
+            agent.Init(transform);
         }
         public void Update()
         {
@@ -31,9 +31,9 @@ namespace Donray
             }
             agent.AddForce(boundry.magnitude, boundry.normalized);
 
-            var v1 = ((Boid)flocking).Alignment(agent as Boid);
-            var v2 = ((Boid)flocking).Dispersion(agent as Boid);
-            var v3 = ((Boid)flocking).Cohesion(agent as Boid);
+            var v1 = ((Boid)_flocking).Alignment(agent as Boid);
+            var v2 = ((Boid)_flocking).Dispersion(agent as Boid);
+            var v3 = ((Boid)_flocking).Cohesion(agent as Boid);
             agent.AddForce(AFac, v1);
             Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);
             agent.AddForce(DFac, v2);

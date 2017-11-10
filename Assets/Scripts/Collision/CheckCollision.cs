@@ -38,7 +38,7 @@ public class CheckCollision : MonoBehaviour
             AxisList.Sort((ob1, ob2) => ob1.Min.x.CompareTo(ob2.Min.x));
         else
             AxisList.Sort((ob1, ob2) => ob1.Min.y.CompareTo(ob2.Min.y));
-        //Create new active list and add the first item from AxisList
+        //Init new active list and add the first item from AxisList
         ActiveList = new List<AABB> {AxisList[0]};
         for (var i = 1; i < AxisList.Count; i++)
         {

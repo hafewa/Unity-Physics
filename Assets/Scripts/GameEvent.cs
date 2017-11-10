@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Create a GameEvent in the Project View
+/// Init a GameEvent in the Project View
 /// This Event should be something meaningful. Ex: GameStart
 /// The GameStart.asset will have its reference used in the project
 /// through the GameListener MonoBehaviour

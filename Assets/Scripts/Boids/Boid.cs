@@ -9,7 +9,7 @@ namespace Donray
     {
         public override Vector3 UpdateAgent(float deltaTime)
         {
-            Acceleration = force * (1 / Mass);
+            Acceleration = Force * (1 / Mass);
             Velocity += Acceleration * deltaTime;
             Velocity = Vector3.ClampMagnitude(Velocity, MaxSpeed);
             Position += Velocity * deltaTime;
@@ -61,7 +61,7 @@ namespace Donray
         public Vector3 Alignment(Boid b)
         {
             Neighbors = GameController.Agents;
-            if (Neighbors.Count <= 0)
+            if (Neighbors.Count <= 1)
                 return Vector3.zero;
             var alignmentForce = Vector3.zero;
             foreach (var neighbor in Neighbors)
