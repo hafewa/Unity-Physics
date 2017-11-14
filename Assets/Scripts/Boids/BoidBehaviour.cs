@@ -8,12 +8,12 @@ namespace Donray
     [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
     public class BoidBehaviour : AgentBehaviour
     {
-        private Agent _flocking;
+        private FlockingBehaviour _flocking;
         public static float DFac, AFac, CFac;
         public static float BoundaryDist;
         public void Start()
         {
-            _flocking = ScriptableObject.CreateInstance<Boid>();
+            _flocking = new FlockingBehaviour();
             BoundaryDist = 10;
         }
         public void SetBoid(Boid b)
@@ -33,9 +33,14 @@ namespace Donray
             }
             agent.AddForce(boundary.magnitude, boundary.normalized);
 
-            var v1 = ((Boid)_flocking).Alignment(agent as Boid);
-            var v2 = ((Boid)_flocking).Dispersion(agent as Boid);
-            var v3 = ((Boid)_flocking).Cohesion(agent as Boid);
+            var test = GameObject.FindGameObjectWithTag("test");
+            agent.AvoidPos = new Vector3(test.transform.position.x, test.transform.position.y);
+
+
+            var v1 = (_flocking).Alignment(agent as Boid);
+            var v2 = (_flocking).Dispersion(agent as Boid);
+            var v3 = (_flocking).Cohesion(agent as Boid);
+            var v4 = (_flocking).Avoid(agent as Boid);
 
             agent.AddForce(AFac, v1);
             Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);
@@ -43,6 +48,7 @@ namespace Donray
             Debug.DrawLine(agent.Position, agent.Position + v2.normalized, Color.yellow);
             agent.AddForce(CFac, v3);
             Debug.DrawLine(agent.Position, agent.Position + v3.normalized, Color.red);
+            agent.AddForce(10, v4);
 
             transform.up = agent.Velocity;
         }

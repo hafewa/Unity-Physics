@@ -5,18 +5,14 @@ namespace Donray
     [CreateAssetMenu(fileName = "Agent", menuName = "Variables/Agent", order = 1)]
     public abstract class Agent : ScriptableObject
     {
+        [SerializeField] protected Vector3 _position;
+        [SerializeField] protected Vector3 _velocity;
         [SerializeField] protected Vector3 Acceleration;
-
+        [SerializeField] private Vector3 avoidPos;
         [SerializeField] protected Vector3 Force;
-
         [SerializeField] protected float Mass;
-
-        [SerializeField] public float MaxSpeed;
+        [SerializeField] protected float maxSpeed;
         public Transform Owner;
-
-        [SerializeField] private Vector3 _position;
-
-        [SerializeField] private Vector3 _velocity;
 
         public Vector3 Position
         {
@@ -30,6 +26,20 @@ namespace Donray
             get { return _velocity; }
 
             set { _velocity = value; }
+        }
+
+        public float MaxSpeed
+        {
+            get { return maxSpeed; }
+
+            set { maxSpeed = value; }
+        }
+
+        public Vector3 AvoidPos
+        {
+            get { return avoidPos; }
+
+            set { avoidPos = value; }
         }
 
         public abstract Vector3 UpdateAgent(float deltaTime);
