@@ -6,6 +6,7 @@ TagManager:
   tags:
   - XCol
   - YCol
+  - test
   layers:
   - Default
   - TransparentFX
