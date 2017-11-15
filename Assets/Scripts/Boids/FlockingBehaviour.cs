@@ -9,18 +9,24 @@ namespace Donray
         public static List<Boid> Neighbors(Boid b)
         {
             var neighbors = new List<Boid>();
-            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 100f);
-            agentss.ForEach(a => a.Velocity.Normalize());
+            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 5);
             agentss.ForEach(a => neighbors.Add(a as Boid));
             return neighbors;
         }
 
         public Vector3 Avoid(Boid b)
         {
+            if (Neighbors(b).Count <= 0)
+                return Vector3.zero;
             var avoidForce = Vector3.zero;
             foreach (var neighbor in Neighbors(b))
             {
-                avoidForce = (neighbor.AvoidPos - b.Position).normalized;
+                var dist = Vector3.Distance(neighbor.AvoidPos, neighbor.Position);
+                if (dist < 10)
+                {
+                    var dir = (neighbor.AvoidPos - neighbor.Position).normalized;
+                    avoidForce += dir;
+                }
             }
             return -avoidForce;
         }

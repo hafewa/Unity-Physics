@@ -33,14 +33,21 @@ namespace Donray
             }
             agent.AddForce(boundary.magnitude, boundary.normalized);
 
-            var test = GameObject.FindGameObjectWithTag("test");
-            agent.AvoidPos = new Vector3(test.transform.position.x, test.transform.position.y);
-
+            var avoidObject = GameObject.FindGameObjectWithTag("test");
+            if (avoidObject != null)
+            { 
+                agent.AvoidPos = new Vector3(avoidObject.transform.position.x,
+                    avoidObject.transform.position.y, 
+                    avoidObject.transform.position.z);
+                var v4 = (_flocking).Avoid(agent as Boid);
+                agent.AddForce(20, v4);
+                //Debug.DrawLine(agent.Position, agent.Position + v4.normalized, Color.black);
+            }
 
             var v1 = (_flocking).Alignment(agent as Boid);
             var v2 = (_flocking).Dispersion(agent as Boid);
             var v3 = (_flocking).Cohesion(agent as Boid);
-            var v4 = (_flocking).Avoid(agent as Boid);
+           
 
             agent.AddForce(AFac, v1);
             Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);
@@ -48,7 +55,6 @@ namespace Donray
             Debug.DrawLine(agent.Position, agent.Position + v2.normalized, Color.yellow);
             agent.AddForce(CFac, v3);
             Debug.DrawLine(agent.Position, agent.Position + v3.normalized, Color.red);
-            agent.AddForce(10, v4);
 
             transform.up = agent.Velocity;
         }
