@@ -28,11 +28,14 @@ namespace BoidsSpace
         public GameObject agentPrefab;
         public int Count;
         public Slider Dis, Coh, Align, Boundry, MaxSpeed;
-        public Text BoidsText;
+        public Text BoidsText, AvoidText;
         public static List<AgentBehaviour> AgentBehaviours;
         public static List<Agent> Agents;
+        public static bool ToggleAvoidBool;
         public void Start()
         {
+            ToggleAvoidBool = false;
+            AvoidText.text = "Avoid Object = Off";
             Count = 0;
             Create();
             BoidsText.text = "Boids: " + Count;
@@ -78,7 +81,6 @@ namespace BoidsSpace
                 behaviour.SetBoid(boid);
             }
         }
-
         [ContextMenu("Destroy")]
         public void Destroy()
         {
@@ -105,6 +107,13 @@ namespace BoidsSpace
             AgentBehaviours.Clear();
             Count += amount;
             Create();
+        }
+
+        [ContextMenu("Avoid Object Toggle")]
+        public void ToggleAvoid()
+        {
+            ToggleAvoidBool = ToggleAvoidBool == false;
+            AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
         }
         #endregion Helpers
     }

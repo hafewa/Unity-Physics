@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Donray
+namespace Collision
+
 {
     public class BoxColliderD : MonoBehaviour
     {

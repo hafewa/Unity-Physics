@@ -1,8 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Donray
+
+namespace Collision
 {
+
     [Serializable]
     public class AABB : ScriptableObject
     {

@@ -16,13 +16,11 @@ namespace BoidsSpace
 
         public Vector3 Avoid(Boid b)
         {
-            if (Neighbors(b).Count <= 0)
-                return Vector3.zero;
             var avoidForce = Vector3.zero;
             foreach (var neighbor in Neighbors(b))
             {
                 var dist = Vector3.Distance(neighbor.AvoidPos, neighbor.Position);
-                if (dist < 10f)
+                if (dist < 50f)
                 {
                     var dir = (neighbor.AvoidPos - neighbor.Position).normalized;
                     avoidForce += dir;

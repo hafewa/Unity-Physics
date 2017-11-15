@@ -33,21 +33,22 @@ namespace BoidsSpace
             }
             agent.AddForce(boundary.magnitude, boundary.normalized);
 
-            var avoidObject = GameObject.FindGameObjectWithTag("test");
-            if (avoidObject != null)
-            { 
+            if (GameController.ToggleAvoidBool)
+            {
+                var avoidObject = GameObject.FindGameObjectWithTag("test");
+                //avoidObject.transform.position = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                 agent.AvoidPos = new Vector3(avoidObject.transform.position.x,
-                    avoidObject.transform.position.y, 
+                    avoidObject.transform.position.y,
                     avoidObject.transform.position.z);
                 var v4 = (_flocking).Avoid(agent as Boid);
-                agent.AddForce(15, v4);
+                agent.AddForce(300, v4);
                 //Debug.DrawLine(agent.Position, agent.Position + v4.normalized, Color.black);
             }
 
             var v1 = (_flocking).Alignment(agent as Boid);
             var v2 = (_flocking).Dispersion(agent as Boid);
             var v3 = (_flocking).Cohesion(agent as Boid);
-           
+
 
             agent.AddForce(AFac, v1);
             Debug.DrawLine(agent.Position, agent.Position + v1.normalized, Color.blue);

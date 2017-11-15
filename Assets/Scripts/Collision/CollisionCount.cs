@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class CollisionCount : MonoBehaviour
+
+namespace Collision
 {
-    public SortAndSweep Sorter;
-    public void UpdateText()
+    public class CollisionCount : MonoBehaviour
     {
-        GetComponent<Text>().text = "Colliding Count: " + Sorter.CurrentPairs.Count;
+        public SortAndSweep Sorter;
+
+        public void UpdateText()
+        {
+            GetComponent<Text>().text = "Colliding Count: " + Sorter.CurrentPairs.Count;
+        }
     }
 }
