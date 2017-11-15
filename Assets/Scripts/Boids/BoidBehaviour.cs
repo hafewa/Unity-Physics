@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace Donray
+namespace BoidsSpace
 {
     [SuppressMessage("ReSharper", "LoopCanBeConvertedToQuery")]
     public class BoidBehaviour : AgentBehaviour
@@ -40,7 +40,7 @@ namespace Donray
                     avoidObject.transform.position.y, 
                     avoidObject.transform.position.z);
                 var v4 = (_flocking).Avoid(agent as Boid);
-                agent.AddForce(20, v4);
+                agent.AddForce(15, v4);
                 //Debug.DrawLine(agent.Position, agent.Position + v4.normalized, Color.black);
             }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-namespace Donray
+namespace BoidsSpace
 {
     public class FlockingBehaviour : MonoBehaviour
     {
@@ -22,13 +22,13 @@ namespace Donray
             foreach (var neighbor in Neighbors(b))
             {
                 var dist = Vector3.Distance(neighbor.AvoidPos, neighbor.Position);
-                if (dist < 10)
+                if (dist < 10f)
                 {
                     var dir = (neighbor.AvoidPos - neighbor.Position).normalized;
                     avoidForce += dir;
                 }
             }
-            return -avoidForce;
+            return avoidForce;
         }
 
         public Vector3 Dispersion(Boid b)

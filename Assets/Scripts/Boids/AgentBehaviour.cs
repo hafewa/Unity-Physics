@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Donray
+namespace BoidsSpace
 {
     public abstract class AgentBehaviour : MonoBehaviour
     {

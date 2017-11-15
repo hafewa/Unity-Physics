@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Donray
+namespace BoidsSpace
 {
     [CreateAssetMenu(fileName = "Agent", menuName = "Variables/Agent", order = 1)]
     public abstract class Agent : ScriptableObject
