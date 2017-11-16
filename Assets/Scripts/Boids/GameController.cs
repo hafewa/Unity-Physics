@@ -26,6 +26,7 @@ namespace BoidsSpace
     public class GameController : MonoBehaviour
     {
         public GameObject agentPrefab;
+        [Range(10, 50)]public int BoidSize;
         public int Count;
         public Slider Dis, Coh, Align, Boundry, MaxSpeed;
         public Text BoidsText, AvoidText;
@@ -36,6 +37,7 @@ namespace BoidsSpace
         {
             ToggleAvoidBool = false;
             AvoidText.text = "Avoid Object = Off";
+            BoidSize = 35;
             Count = 0;
             Create();
             BoidsText.text = "Boids: " + Count;
@@ -66,11 +68,11 @@ namespace BoidsSpace
             for (var i = 0; i < Count; i++)
             {
                 //var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                var go = Instantiate(agentPrefab) as GameObject;
+                var go = Instantiate(agentPrefab);
                 go.transform.SetParent(transform);
                 go.name = string.Format("{0} {1}", "Agent: ", i);
                 go.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-                go.transform.localScale = new Vector3(50f, 50f, 50f);
+                go.transform.localScale = new Vector3(BoidSize, BoidSize, BoidSize);
 
                 var behaviour = go.AddComponent<BoidBehaviour>();
                 var boid = ScriptableObject.CreateInstance<Boid>();
