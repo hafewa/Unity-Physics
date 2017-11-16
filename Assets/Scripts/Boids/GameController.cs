@@ -37,7 +37,7 @@ namespace BoidsSpace
         {
             ToggleAvoidBool = false;
             AvoidText.text = "Avoid Object = Off";
-            BoidSize = 50;
+            BoidSize = 35;
             Count = 0;
             Create();
             BoidsText.text = "Boids: " + Count;
@@ -56,6 +56,8 @@ namespace BoidsSpace
                 agent.MaxSpeed = MaxSpeed.value;
                 Boundry.gameObject.SetActive(!(agent.MaxSpeed <= 0));
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Application.Quit();
         }
         #region Helpers
         [ContextMenu("Create")]

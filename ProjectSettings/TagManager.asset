@@ -7,6 +7,7 @@ TagManager:
   - XCol
   - YCol
   - test
+  - avoid
   layers:
   - Default
   - TransparentFX

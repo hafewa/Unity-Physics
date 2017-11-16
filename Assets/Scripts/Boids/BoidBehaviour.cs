@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace BoidsSpace
@@ -9,11 +10,14 @@ namespace BoidsSpace
         public static float DFac, AFac, CFac;
         public static float BoundaryDist;
         private FlockingBehaviour _flocking;
-
+        private List<Color> _colorList;
+        private Color _randomColor;
         public void Start()
         {
             _flocking = new FlockingBehaviour();
             BoundaryDist = 10;
+            _colorList = new List<Color> {Color.red, Color.blue, Color.cyan, Color.green, Color.grey};
+            _randomColor = _colorList[Random.Range(0, _colorList.Count)];
         }
 
         public void SetBoid(Boid b)
@@ -43,20 +47,21 @@ namespace BoidsSpace
         {
             if (GameController.ToggleAvoidBool)
             {
-                var avoidObject = GameObject.FindGameObjectWithTag("test");
+                var avoidObject = GameObject.FindGameObjectWithTag("avoid");
                 avoidObject.GetComponent<MeshRenderer>().enabled = true;
                 agent.AvoidPos = new Vector3(avoidObject.transform.position.x,
                     avoidObject.transform.position.y,
                     avoidObject.transform.position.z);
                 var dist = Vector3.Distance(transform.position, agent.AvoidPos);
-                GetComponent<MeshRenderer>().material.color = dist < 5f ? Color.red : Color.blue;
+                if (dist < 5f) GetComponent<MeshRenderer>().material.color = Color.red;
+                else GetComponent<MeshRenderer>().material.color = Color.green;
                 var v4 = _flocking.Avoid(agent as Boid);
-                agent.AddForce(2500, v4);
+                agent.AddForce(3000, v4);
             }
             else
             {
-                GetComponent<MeshRenderer>().material.color = Color.green;
-                var avoidObject = GameObject.FindGameObjectWithTag("test");
+                GetComponent<MeshRenderer>().material.color = _randomColor;
+                var avoidObject = GameObject.FindGameObjectWithTag("avoid");
                 avoidObject.GetComponent<MeshRenderer>().enabled = false;
             }
 

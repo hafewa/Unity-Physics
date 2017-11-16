@@ -49,7 +49,7 @@ namespace BoidsSpace
 
         public Vector3 Cohesion(Boid b)
         {
-            if (Neighbors(b).Count <= 0)
+            if (Neighbors(b).Count <= 1)
                 return Vector3.zero;
             var cohesionForce = Vector3.zero;
             foreach (var neighbor in Neighbors(b))
@@ -57,7 +57,7 @@ namespace BoidsSpace
                 if (neighbor == b) continue;
                 cohesionForce += neighbor.Position;
             }
-            cohesionForce /= Neighbors(b).Count;
+            cohesionForce /= Neighbors(b).Count - 1;
 
             return (cohesionForce - b.Position) / 100;
         }
