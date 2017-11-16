@@ -27,10 +27,7 @@ namespace BoidsSpace
             var boundary = Vector3.zero;
             var dist = Vector3.Distance(transform.position, Vector3.zero);
             if (dist > BoundaryDist)
-            {
-                GetComponent<MeshRenderer>().material.color = Color.cyan;
                 boundary = dist * (Vector3.zero - transform.position);
-            }
             agent.AddForce(boundary.magnitude, boundary.normalized);
             DoMath();
         }
@@ -51,11 +48,14 @@ namespace BoidsSpace
                 agent.AvoidPos = new Vector3(avoidObject.transform.position.x,
                     avoidObject.transform.position.y,
                     avoidObject.transform.position.z);
+                var dist = Vector3.Distance(transform.position, agent.AvoidPos);
+                GetComponent<MeshRenderer>().material.color = dist < 5f ? Color.red : Color.blue;
                 var v4 = _flocking.Avoid(agent as Boid);
-                agent.AddForce(300, v4);
+                agent.AddForce(2500, v4);
             }
             else
             {
+                GetComponent<MeshRenderer>().material.color = Color.green;
                 var avoidObject = GameObject.FindGameObjectWithTag("test");
                 avoidObject.GetComponent<MeshRenderer>().enabled = false;
             }

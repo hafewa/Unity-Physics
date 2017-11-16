@@ -20,7 +20,7 @@ namespace BoidsSpace
             foreach (var neighbor in Neighbors(b))
             {
                 var dist = Vector3.Distance(neighbor.AvoidPos, neighbor.Position);
-                if (dist < 50f)
+                if (dist < 5f)
                 {
                     var dir = (neighbor.AvoidPos - neighbor.Position).normalized;
                     avoidForce += dir;

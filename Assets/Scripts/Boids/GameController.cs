@@ -37,11 +37,12 @@ namespace BoidsSpace
         {
             ToggleAvoidBool = false;
             AvoidText.text = "Avoid Object = Off";
-            BoidSize = 35;
+            BoidSize = 50;
             Count = 0;
             Create();
             BoidsText.text = "Boids: " + Count;
             Boundry.value = BoidBehaviour.BoundaryDist;
+            Boundry.gameObject.SetActive(false);
         }
         public void Update()
         {
@@ -53,6 +54,7 @@ namespace BoidsSpace
             foreach (var agent in Agents)
             {
                 agent.MaxSpeed = MaxSpeed.value;
+                Boundry.gameObject.SetActive(!(agent.MaxSpeed <= 0));
             }
         }
         #region Helpers
@@ -114,7 +116,7 @@ namespace BoidsSpace
         [ContextMenu("Avoid Object Toggle")]
         public void ToggleAvoid()
         {
-            ToggleAvoidBool = ToggleAvoidBool == false;
+            ToggleAvoidBool = !ToggleAvoidBool;
             AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
         }
         #endregion Helpers
