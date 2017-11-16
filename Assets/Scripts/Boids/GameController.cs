@@ -27,35 +27,20 @@ namespace BoidsSpace
     {
         public GameObject agentPrefab;
         [Range(10, 50)]public int BoidSize;
-        public int Count;
-        public Slider Dis, Coh, Align, Boundry, MaxSpeed;
-        public Text BoidsText, AvoidText;
+        public static int Count;
+        public UIController _uiController;
         public static List<AgentBehaviour> AgentBehaviours;
         public static List<Agent> Agents;
         public static bool ToggleAvoidBool;
         public void Start()
         {
             ToggleAvoidBool = false;
-            AvoidText.text = "Avoid Object = Off";
             BoidSize = 35;
             Count = 0;
             Create();
-            BoidsText.text = "Boids: " + Count;
-            Boundry.value = BoidBehaviour.BoundaryDist;
-            Boundry.gameObject.SetActive(false);
         }
         public void Update()
-        {
-            BoidsText.text = "Boids: " + Count;
-            BoidBehaviour.DFac = Dis.value;
-            BoidBehaviour.CFac = Coh.value;
-            BoidBehaviour.AFac = Align.value;
-            BoidBehaviour.BoundaryDist = Boundry.value;
-            foreach (var agent in Agents)
-            {
-                agent.MaxSpeed = MaxSpeed.value;
-                Boundry.gameObject.SetActive(!(agent.MaxSpeed <= 0));
-            }
+        { 
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
         }
@@ -63,10 +48,10 @@ namespace BoidsSpace
         [ContextMenu("Create")]
         public void Create()
         {
-            MaxSpeed.gameObject.SetActive(true);
-            Dis.gameObject.SetActive(true);
-            Coh.gameObject.SetActive(true);
-            Align.gameObject.SetActive(true);
+            _uiController.MaxSpeedSL.gameObject.SetActive(true);
+            _uiController.DispersionSL.gameObject.SetActive(true);
+            _uiController.CohesionSL.gameObject.SetActive(true);
+            _uiController.AlignmentSL.gameObject.SetActive(true);
             Agents = new List<Agent>();
             AgentBehaviours = new List<AgentBehaviour>();
             for (var i = 0; i < Count; i++)
@@ -97,10 +82,10 @@ namespace BoidsSpace
             Count = 0;
             Agents.Clear();
             AgentBehaviours.Clear();
-            MaxSpeed.gameObject.SetActive(false);
-            Dis.gameObject.SetActive(false);
-            Coh.gameObject.SetActive(false);
-            Align.gameObject.SetActive(false);
+            _uiController.MaxSpeedSL.gameObject.SetActive(false);
+            _uiController.DispersionSL.gameObject.SetActive(false);
+            _uiController.CohesionSL.gameObject.SetActive(false);
+            _uiController.AlignmentSL.gameObject.SetActive(false);
         }
         [ContextMenu("Add")]
         public void Add(int amount)
@@ -119,7 +104,7 @@ namespace BoidsSpace
         public void ToggleAvoid()
         {
             ToggleAvoidBool = !ToggleAvoidBool;
-            AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
+            _uiController.AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
         }
         #endregion Helpers
     }

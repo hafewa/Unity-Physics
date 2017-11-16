@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 namespace BoidsSpace
 {
-    public class FlockingBehaviour : MonoBehaviour
+    public class FlockingBehaviour
     {
         public static List<Boid> Neighbors(Boid b)
         {
@@ -14,7 +14,7 @@ namespace BoidsSpace
             return neighbors;
         }
 
-        public Vector3 Avoid(Boid b)
+        public static Vector3 Avoid(Boid b)
         {
             var avoidForce = Vector3.zero;
             foreach (var neighbor in Neighbors(b))
@@ -29,7 +29,7 @@ namespace BoidsSpace
             return avoidForce;
         }
 
-        public Vector3 Dispersion(Boid b)
+        public static Vector3 Dispersion(Boid b)
         {
             if (Neighbors(b).Count <= 0)
                 return Vector3.zero;
@@ -47,7 +47,7 @@ namespace BoidsSpace
             return seperationForce;
         }
 
-        public Vector3 Cohesion(Boid b)
+        public static Vector3 Cohesion(Boid b)
         {
             if (Neighbors(b).Count <= 1)
                 return Vector3.zero;
@@ -62,7 +62,7 @@ namespace BoidsSpace
             return (cohesionForce - b.Position) / 100;
         }
 
-        public Vector3 Alignment(Boid b)
+        public static Vector3 Alignment(Boid b)
         {
             if (Neighbors(b).Count <= 1)
                 return Vector3.zero;

@@ -39,8 +39,8 @@ namespace TrelloTickets
                 accel = Mathf.Clamp(accel, 0, Speed);
 
                 var rotation = Quaternion.LookRotation(input, transform.up);
-                var newrotation = Quaternion.Slerp(transform.rotation, rotation, 20);
-                var angle = Quaternion.Dot(rotation, newrotation);
+                //var newrotation = Quaternion.Slerp(transform.rotation, rotation, 20);
+                //var angle = Quaternion.Dot(rotation, newrotation);
 
                 _rb.velocity = input * Speed * accel;
                 transform.rotation = rotation;

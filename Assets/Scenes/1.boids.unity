@@ -1378,6 +1378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622600367}
   - component: {fileID: 622600368}
+  - component: {fileID: 622600369}
   m_Layer: 0
   m_Name: AgentFactory
   m_TagString: Untagged
@@ -1413,12 +1414,23 @@ MonoBehaviour:
   agentPrefab: {fileID: 1923110893790292, guid: da9a7a4d95324c94faf50223c7ca8369,
     type: 2}
   BoidSize: 0
-  Count: 0
-  Dis: {fileID: 1659116712}
-  Coh: {fileID: 1045653790}
-  Align: {fileID: 1824810981}
-  Boundry: {fileID: 1746991752}
-  MaxSpeed: {fileID: 2072311257}
+  _uiController: {fileID: 622600369}
+--- !u!114 &622600369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622600366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5368a697e2512b4d93ab4ea26c84d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSpeedSL: {fileID: 2072311257}
+  DispersionSL: {fileID: 1659116712}
+  CohesionSL: {fileID: 1045653790}
+  AlignmentSL: {fileID: 1824810981}
+  BoundrySL: {fileID: 1746991752}
   BoidsText: {fileID: 1006150647}
   AvoidText: {fileID: 1783453624}
 --- !u!1 &637759959

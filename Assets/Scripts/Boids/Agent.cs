@@ -51,7 +51,6 @@ namespace BoidsSpace
             Velocity = Utility.RandomVector3;
             Acceleration = Vector3.zero;
             Position = owner.position;
-            MaxSpeed = 10;
         }
 
         public bool AddForce(float mag, Vector3 direction)
