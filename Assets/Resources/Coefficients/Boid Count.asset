@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07c3f632ef57424c8baf0b89c050001, type: 3}
   m_Name: Boid Count
   m_EditorClassIdentifier: 
-  Value: 30
+  Value: 5

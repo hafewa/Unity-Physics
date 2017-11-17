@@ -14,7 +14,8 @@ namespace BoidsSpace
         public FloatVariable MaxForce;
         public FloatVariable BoundaryDistance;
         public FloatVariable BFac;
-        public Transform target;
+        public FloatVariable Count;
+        //public Transform target;
         
         [SerializeField]
         private List<Agent> _agents = new List<Agent>();
@@ -23,6 +24,7 @@ namespace BoidsSpace
         {
             _agents = AgentFactory.Agents;
             isReady = true;
+            BFac.Value = 20;
         }
 
         public List<Boid> Neighbors(Boid b)
@@ -32,22 +34,21 @@ namespace BoidsSpace
             agents.ForEach(a => neighbors.Add(a as Boid));
             return neighbors;
         }
-
         void Update()
         {
             if (!isReady) return;
-            foreach (Boid agent in _agents)
+            foreach (var agent in _agents)
             {
                 agent.MaxSpeed = MaxSpeed.Value;
                 agent.MaxForce = MaxForce.Value;
-                var v1 = Alignment(agent);
-                var v2 = Dispersion(agent);
-                var v3 = Cohesion(agent);
-                var v4 = BoundaryForce(agent);
-                var allforces = AFac.Value * v1 + DFac.Value * v2 + CFac.Value * v3 + BFac.Value * v4;
+                var v1 = Alignment(agent as Boid);
+                var v2 = Dispersion(agent as Boid);
+                var v3 = Cohesion(agent as Boid);
+                var v4 = BoundaryForce(agent as Boid);
+                var allforces = AFac.Value * v1 + DFac.Value * v2 + CFac.Value * v3;
 
+                agent.AddForce(BFac.Value, v4.normalized);
                 agent.AddForce(allforces.magnitude, allforces.normalized);
-
             }
         }
         #region Algorithm
@@ -117,9 +118,9 @@ namespace BoidsSpace
         public Vector3 BoundaryForce(Boid b)
         {
             var force = Vector3.zero;
-            var dist = Vector3.Distance(b.Position, target.position);
+            var dist = Vector3.Distance(b.Position, Vector3.zero);
             if (dist > BoundaryDistance.Value)
-                force = (target.position - b.Position);
+                force = dist  * (Vector3.zero - b.Position);
             return force;
         }
     }

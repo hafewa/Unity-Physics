@@ -9,13 +9,13 @@ namespace BoidsSpace
     {
         //public static float DFac, AFac, CFac;
         //public static float BoundaryDist;
-        //private List<Color> _colorList;
+        private List<Color> _colorList;
         //private Color _randomColor;
-        //private int i;
+        private static int i;
         public void Start()
         {
-            //i = 0;
-            //_colorList = new List<Color> { Color.red, Color.blue, Color.cyan, Color.green, Color.grey, Color.yellow, Random.ColorHSV() };
+            i = 0;
+            _colorList = new List<Color> { Color.red, Color.blue, Color.cyan, Color.green, Color.grey, Color.yellow, Random.ColorHSV() };
             //_randomColor = _colorList[Random.Range(0, _colorList.Count - 1)];
         }
 
@@ -30,11 +30,18 @@ namespace BoidsSpace
                 return;
             transform.localPosition = agent.UpdateAgent(Time.deltaTime);
             transform.forward = agent.Velocity.normalized;
+            SetColor();
         }
 
-        public void SetColor(Color color)
+        public void SetColor()
         {
-            
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (i == _colorList.Count - 1)
+                    i = 0;
+                i++;
+                GetComponentInChildren<MeshRenderer>().material.color = _colorList[i];
+            }
         }
         //public void _Update()
         //{

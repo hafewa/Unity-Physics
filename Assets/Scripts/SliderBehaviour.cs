@@ -10,6 +10,7 @@ public class SliderBehaviour : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
+        floatvar.Value = 0;
         slider.value = floatvar.Value;
     }
     

@@ -61,8 +61,6 @@ namespace BoidsSpace
             Acceleration = Vector3.zero;
             Velocity = Random.onUnitSphere;            
             Position = Random.onUnitSphere;
-            
-            
         }
 
         void OnEnable()

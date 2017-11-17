@@ -7,13 +7,11 @@ public class TextBehaviour : MonoBehaviour {
     public FloatVariable floatvar;
     [SerializeField]
     private Text _text;
-    
-    void OnEnable()
-    {
-        SetValue();
-    }
+  
     void Start()
     {
+        floatvar.Value = 0;
+        SetValue();
         if(_text == null)
             _text = GetComponent<Text>();
     }

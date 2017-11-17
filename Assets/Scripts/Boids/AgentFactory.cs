@@ -47,9 +47,9 @@ namespace BoidsSpace
 
         #region Helpers
         [ContextMenu("Create")]
-        public void Create()
+        public void Create(int num)
         {
-            for (var i = 0; i < Count.Value; i++)
+            for (var i = 0; i < num; i++)
             {
                 var go = Instantiate(agentPrefab, transform);                
                 go.name = string.Format("{0} {1}", "Agent: ", i);                
@@ -73,6 +73,7 @@ namespace BoidsSpace
                 DestroyImmediate(v.gameObject);
             }            
             Agents.Clear();
+            Count.Value = 0;
             AgentBehaviours.Clear();
             Count.Value = Agents.Count;
         }        
@@ -81,7 +82,7 @@ namespace BoidsSpace
         public void Add(int amount)
         {
             Count.Value += amount;
-            Create();
+            Create(amount);
         }
 
         [ContextMenu("Avoid Object Toggle")]
@@ -89,19 +90,6 @@ namespace BoidsSpace
         {
             ToggleAvoidBool = !ToggleAvoidBool;
             //_uiController.AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
-        }
-
-        private void RealRefresh()
-        {
-            foreach (var v in AgentBehaviours)
-            {
-                DestroyImmediate(v.gameObject);
-            }
-            Agents.Clear();
-            AgentBehaviours.Clear();
-            var temp = Count;
-            Count = temp;
-            Create();
         }
         #endregion Helpers
     }
