@@ -8,7 +8,7 @@ namespace BoidsSpace
     public class UIController : MonoBehaviour
     {
         public Slider MaxSpeedSL, DispersionSL, CohesionSL, AlignmentSL, BoundrySL;
-        public Text BoidsText, AvoidText;
+        public Text BoidsText, AvoidText, SpeedText, DispersionText, CohesionText, AlignmentText, BoundaryText;
 
         // Use this for initialization
         void Start()
@@ -24,14 +24,19 @@ namespace BoidsSpace
         {
             BoidsText.text = "Boids: " + GameController.Count;
             BoidBehaviour.DFac = DispersionSL.value;
+            DispersionText.text = "Dispersion: " + Mathf.RoundToInt(BoidBehaviour.DFac);
             BoidBehaviour.CFac = CohesionSL.value;
+            CohesionText.text = "Cohesion: " + Mathf.RoundToInt(BoidBehaviour.CFac);
             BoidBehaviour.AFac = AlignmentSL.value;
+            AlignmentText.text = "Alignment: " + Mathf.RoundToInt(BoidBehaviour.AFac);
             BoidBehaviour.BoundaryDist = BoundrySL.value;
+            BoundaryText.text = "Boundary: " + Mathf.RoundToInt(BoidBehaviour.BoundaryDist);
             if (GameController.Agents != null)
                 foreach (var agent in GameController.Agents)
                 {
                     agent.MaxSpeed = MaxSpeedSL.value;
                     BoundrySL.gameObject.SetActive(!(agent.MaxSpeed <= 0));
+                    SpeedText.text = "Max Speed: " + Mathf.RoundToInt(agent.MaxSpeed);
                 }
         }
     }

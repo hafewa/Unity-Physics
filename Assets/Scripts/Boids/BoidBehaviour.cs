@@ -15,7 +15,6 @@ namespace BoidsSpace
         public void Start()
         {
             i = 0;
-            BoundaryDist = 10;
             _colorList = new List<Color> { Color.red, Color.blue, Color.cyan, Color.green, Color.grey, Color.yellow, Random.ColorHSV() };
             _randomColor = _colorList[Random.Range(0, _colorList.Count - 1)];
         }

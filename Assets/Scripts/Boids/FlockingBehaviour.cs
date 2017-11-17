@@ -23,7 +23,7 @@ namespace BoidsSpace
                 if (dist < 5f)
                 {
                     var dir = (neighbor.AvoidPos - neighbor.Position).normalized;
-                    avoidForce += dir;
+                    avoidForce = dist * dir;
                 }
             }
             return avoidForce;
