@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 
 namespace BoidsSpace
-{
-    [CreateAssetMenu(fileName = "Agent", menuName = "Variables/Agent", order = 1)]
+{ 
     public abstract class Agent : ScriptableObject
     {
+        
+        [SerializeField] private Vector3 avoidPos;
         [SerializeField] protected Vector3 _position;
         [SerializeField] protected Vector3 _velocity;
-        [SerializeField] protected Vector3 Acceleration;
-        [SerializeField] private Vector3 avoidPos;
+        [SerializeField] protected Vector3 Acceleration;        
         [SerializeField] protected Vector3 Force;
         [SerializeField] protected float Mass;
         [SerializeField] protected float maxSpeed;
-        public Transform Owner;
+        [SerializeField] protected float maxForce;
+
 
         public Vector3 Position
         {
@@ -27,6 +28,14 @@ namespace BoidsSpace
 
             set { _velocity = value; }
         }
+
+        public float MaxForce
+        {
+            get { return maxForce; }
+
+            set { maxForce = value; }
+        }
+
 
         public float MaxSpeed
         {
@@ -43,14 +52,22 @@ namespace BoidsSpace
         }
 
         public abstract Vector3 UpdateAgent(float deltaTime);
-
-        public void Init(Transform owner)
-        {
-            Owner = owner;
+        
+        public void Init()
+        {            
             Mass = 1;
-            Velocity = Utility.RandomVector3;
+            MaxSpeed = 10;
+            maxForce = 10;
             Acceleration = Vector3.zero;
-            Position = owner.position;
+            Velocity = Random.onUnitSphere;            
+            Position = Random.onUnitSphere;
+            
+            
+        }
+
+        void OnEnable()
+        {
+            Init();
         }
 
         public bool AddForce(float mag, Vector3 direction)

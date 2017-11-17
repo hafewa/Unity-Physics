@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace BoidsSpace
 {
+    [CreateAssetMenu]
     public class Boid : Agent
     {
         public override Vector3 UpdateAgent(float deltaTime)
