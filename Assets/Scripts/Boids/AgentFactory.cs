@@ -23,41 +23,36 @@ namespace BoidsSpace
             }
         }
     }
-    public class GameController : MonoBehaviour
-    {
+    //GameController is really the Factory that will create boids
+    public class AgentFactory : MonoBehaviour
+    {        
         public GameObject agentPrefab;
-        [Range(10, 50)] public int BoidSize;
-        public static int Count;
-        private UIController _uiController;
-        public static List<AgentBehaviour> AgentBehaviours;
-        public static List<Agent> Agents;
+        
+        public static List<AgentBehaviour> AgentBehaviours = new List<AgentBehaviour>();
+        public static List<Agent> Agents = new List<Agent>();
         public static bool ToggleAvoidBool;
+        public FloatVariable Count;
         public void Start()
-        {
-            _uiController = GetComponent<UIController>();
+        {            
             ToggleAvoidBool = false;
-            BoidSize = 25;
-            Count = 0;
-            Create();
+            
+            Count.Value = 0;
+            
         }
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
-        }
+        }        
+
         #region Helpers
         [ContextMenu("Create")]
         public void Create()
         {
-            Agents = new List<Agent>();
-            AgentBehaviours = new List<AgentBehaviour>();
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < Count.Value; i++)
             {
-                var go = Instantiate(agentPrefab);
-                go.transform.SetParent(transform);
-                go.name = string.Format("{0} {1}", "Agent: ", i);
-                go.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-                go.transform.localScale = new Vector3(BoidSize, BoidSize, BoidSize);
+                var go = Instantiate(agentPrefab, transform);                
+                go.name = string.Format("{0} {1}", "Agent: ", i);                
 
                 var behaviour = go.AddComponent<BoidBehaviour>();
                 var boid = ScriptableObject.CreateInstance<Boid>();
@@ -68,38 +63,35 @@ namespace BoidsSpace
                 behaviour.SetBoid(boid);
             }
         }
+
         [ContextMenu("Destroy")]
         public void Destroy()
         {
+            if (AgentBehaviours.Count < 1) return;
             foreach (var v in AgentBehaviours)
             {
                 DestroyImmediate(v.gameObject);
-            }
-            Count = 0;
+            }            
             Agents.Clear();
             AgentBehaviours.Clear();
-        }
+            Count.Value = Agents.Count;
+        }        
+
         [ContextMenu("Add")]
         public void Add(int amount)
         {
-            foreach (var v in AgentBehaviours)
-            {
-                DestroyImmediate(v.gameObject);
-            }
-            Agents.Clear();
-            AgentBehaviours.Clear();
-            Count += amount;
+            Count.Value += amount;
             Create();
         }
 
         [ContextMenu("Avoid Object Toggle")]
-        public void ToggleAvoid()
+        private void ToggleAvoid()
         {
             ToggleAvoidBool = !ToggleAvoidBool;
-            _uiController.AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
+            //_uiController.AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
         }
 
-        public void RealRefresh()
+        private void RealRefresh()
         {
             foreach (var v in AgentBehaviours)
             {

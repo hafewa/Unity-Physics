@@ -4,17 +4,54 @@ using UnityEngine;
 using System.Linq;
 namespace BoidsSpace
 {
-    public class FlockingBehaviour
+    public class FlockingBehaviour : MonoBehaviour
     {
-        public static List<Boid> Neighbors(Boid b)
+        public bool isReady = false;
+        public FloatVariable AFac;
+        public FloatVariable CFac;
+        public FloatVariable DFac;
+        public FloatVariable MaxSpeed;
+        public FloatVariable MaxForce;
+        public FloatVariable BoundaryDistance;
+        public FloatVariable BFac;
+        public Transform target;
+        
+        [SerializeField]
+        private List<Agent> _agents = new List<Agent>();
+
+        public void SetAgents()
+        {
+            _agents = AgentFactory.Agents;
+            isReady = true;
+        }
+
+        public List<Boid> Neighbors(Boid b)
         {
             var neighbors = new List<Boid>();
-            var agentss = GameController.Agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 5);
-            agentss.ForEach(a => neighbors.Add(a as Boid));
+            var agents = _agents.FindAll(x => Vector3.Distance(x.Position, b.Position) < 5);
+            agents.ForEach(a => neighbors.Add(a as Boid));
             return neighbors;
         }
 
-        public static Vector3 Avoid(Boid b)
+        void Update()
+        {
+            if (!isReady) return;
+            foreach (Boid agent in _agents)
+            {
+                agent.MaxSpeed = MaxSpeed.Value;
+                agent.MaxForce = MaxForce.Value;
+                var v1 = Alignment(agent);
+                var v2 = Dispersion(agent);
+                var v3 = Cohesion(agent);
+                var v4 = BoundaryForce(agent);
+                var allforces = AFac.Value * v1 + DFac.Value * v2 + CFac.Value * v3 + BFac.Value * v4;
+
+                agent.AddForce(allforces.magnitude, allforces.normalized);
+
+            }
+        }
+        #region Algorithm
+        public Vector3 Avoid(Boid b)
         {
             var avoidForce = Vector3.zero;
             foreach (var neighbor in Neighbors(b))
@@ -29,7 +66,7 @@ namespace BoidsSpace
             return avoidForce;
         }
 
-        public static Vector3 Dispersion(Boid b)
+        public Vector3 Dispersion(Boid b)
         {
             if (Neighbors(b).Count <= 0)
                 return Vector3.zero;
@@ -47,7 +84,7 @@ namespace BoidsSpace
             return seperationForce;
         }
 
-        public static Vector3 Cohesion(Boid b)
+        public Vector3 Cohesion(Boid b)
         {
             if (Neighbors(b).Count <= 1)
                 return Vector3.zero;
@@ -62,7 +99,7 @@ namespace BoidsSpace
             return (cohesionForce - b.Position) / 100;
         }
 
-        public static Vector3 Alignment(Boid b)
+        public Vector3 Alignment(Boid b)
         {
             if (Neighbors(b).Count <= 1)
                 return Vector3.zero;
@@ -76,6 +113,16 @@ namespace BoidsSpace
 
             return (alignmentForce - b.Velocity) / 8;
         }
+
+        public Vector3 BoundaryForce(Boid b)
+        {
+            var force = Vector3.zero;
+            var dist = Vector3.Distance(b.Position, target.position);
+            if (dist > BoundaryDistance.Value)
+                force = (target.position - b.Position);
+            return force;
+        }
     }
+    #endregion Algorithm
 
 }
