@@ -30,14 +30,11 @@ namespace BoidsSpace
         
         public static List<AgentBehaviour> AgentBehaviours = new List<AgentBehaviour>();
         public static List<Agent> Agents = new List<Agent>();
-        public static bool ToggleAvoidBool;
+
         public FloatVariable Count;
         public void Start()
-        {            
-            ToggleAvoidBool = false;
-            
+        {                 
             Count.Value = 0;
-            
         }
         public void Update()
         {
@@ -83,13 +80,6 @@ namespace BoidsSpace
         {
             Count.Value += amount;
             Create(amount);
-        }
-
-        [ContextMenu("Avoid Object Toggle")]
-        private void ToggleAvoid()
-        {
-            ToggleAvoidBool = !ToggleAvoidBool;
-            //_uiController.AvoidText.text = ToggleAvoidBool == false ? "Avoid Object = Off" : "Avoid Object = On";
         }
         #endregion Helpers
     }

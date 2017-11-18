@@ -16,7 +16,7 @@
 //        // Use this for initialization
 //        void Start()
 //        {
-//            AvoidText.text = "Avoid Object = Off";
+
 //            BoidsText.text = "Boids: " + GameController.Count;
 
 //            BoundrySL.gameObject.SetActive(false);
