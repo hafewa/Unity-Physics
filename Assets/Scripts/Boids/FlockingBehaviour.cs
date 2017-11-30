@@ -15,7 +15,7 @@ namespace BoidsSpace
         public FloatVariable BoundaryDistance;
         public FloatVariable BFac;
         public FloatVariable Count;
-        //public Transform target;
+        public Transform target;
         
         [SerializeField]
         private List<Agent> _agents = new List<Agent>();
@@ -45,10 +45,25 @@ namespace BoidsSpace
                 var v2 = Dispersion(agent as Boid);
                 var v3 = Cohesion(agent as Boid);
                 var v4 = BoundaryForce(agent as Boid);
-                var allforces = AFac.Value * v1 + DFac.Value * v2 + CFac.Value * v3;
+                var allforces = AFac.Value * v1 + DFac.Value * v2 + CFac.Value * v3 + BFac.Value * v4;
 
                 agent.AddForce(BFac.Value, v4.normalized);
                 agent.AddForce(allforces.magnitude, allforces.normalized);
+                var avoidObject = GameObject.FindGameObjectWithTag("avoid");
+                if (AvoidButton.ToggleAvoidBool)
+                {
+                    avoidObject.GetComponent<MeshRenderer>().enabled = true;
+                    agent.AvoidPos = new Vector3(avoidObject.transform.position.x,
+                        avoidObject.transform.position.y,
+                        avoidObject.transform.position.z);
+                    var v5 = Avoid(agent as Boid);
+                    agent.AddForce(20, v5);
+                }
+                else
+                {
+                    avoidObject.GetComponent<MeshRenderer>().enabled = false;
+                }
+               
             }
         }
         #region Algorithm
@@ -118,9 +133,9 @@ namespace BoidsSpace
         public Vector3 BoundaryForce(Boid b)
         {
             var force = Vector3.zero;
-            var dist = Vector3.Distance(b.Position, Vector3.zero);
+            var dist = Vector3.Distance(b.Position, target.position);
             if (dist > BoundaryDistance.Value)
-                force = dist  * (Vector3.zero - b.Position);
+                force = dist  * (target.position - b.Position);
             return force;
         }
     }
