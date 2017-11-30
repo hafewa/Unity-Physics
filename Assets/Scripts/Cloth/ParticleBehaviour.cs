@@ -12,11 +12,10 @@ namespace HookesLaw
         void Start()
         {
             particle = new Particle(transform.position, Vector3.zero, 1);
-            //particle.AddForce(Vector3.right);
         }
 
         // Update is called once per frame
-        void FixedUpdate()
+        public void UpdateParticle()
         {
             transform.position = particle.Update(Time.fixedDeltaTime);
         }

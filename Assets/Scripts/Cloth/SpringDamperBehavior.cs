@@ -8,17 +8,11 @@ namespace HookesLaw
 
         private SpringDamper sd;
 
+        public float springConstant, restLength, springDamper;
         // Use this for initialization
         private void Start()
         {
-            sd = new SpringDamper(p1.particle, p2.particle, 10f, 3);
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            Spring(p1.particle, p2.particle);
-            Debug.DrawLine(p1.particle.Postion, p2.particle.Postion);
+            sd = new SpringDamper(p1.particle, p2.particle, springConstant, restLength, springDamper);
         }
 
         public void Spring(Particle a, Particle b)
@@ -35,6 +29,30 @@ namespace HookesLaw
 
             a.AddForce(force);
             b.AddForce(-force);
+        }
+
+        public void SpringDot(Particle a, Particle b, float springK, float restL, float springD)
+        {
+            sd._ks = springK;
+            sd._lo = restL;
+            sd._kd = springD;
+
+            var dir = b.Postion - a.Postion;
+            var l = dir.magnitude;
+            var e = dir / l;
+
+            var v1 = Vector3.Dot(e, a.Velocity);
+            var v2 = Vector3.Dot(e, b.Velocity);
+
+            var s = sd._ks * (sd._lo - l);
+            var d = sd._kd * (v1 - v2);
+
+            var f = -s - d;
+            var f1 = f * e;
+            var f2 = -f1;
+
+            a.AddForce(f1);
+            b.AddForce(f2);
         }
     }
 }
