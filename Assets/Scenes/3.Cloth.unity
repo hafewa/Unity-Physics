@@ -303,13 +303,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d2a75a9911acb428e2acbaad4ce28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: 25
   GravityAll: 0
   ks: 0
   lo: 0
   kd: 0
-  particleBehaviours: []
-  springDamperBehaviors: []
+  pbs: []
+  Size: 3
+  sbs: []
+  trianglesList: []
   verts: []
 --- !u!4 &2136390560
 Transform:
