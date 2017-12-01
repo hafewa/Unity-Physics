@@ -18,33 +18,49 @@ namespace HookesLaw
         private void Start()
         {
             StartCoroutine(Generate());
-
+            
         }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            if (verts.Length == 25)
-                Debug.DrawLine(SpheresList[0].transform.position, SpheresList[1].transform.position);
-        }
-
         private IEnumerator Generate()
         {
-            verts = new ParticleBehaviour[Size * Size];
-            var i = 0;
+            var size2 = Size * Size;
+            verts = new ParticleBehaviour[size2];
+            var iD = 0;
             for (var y = 0; y < Size; y++)
             for (var x = 0; x < Size; x++)
             {
                 _sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                _sphere.AddComponent<ParticleBehaviour>();
+                var beh = _sphere.AddComponent<ParticleBehaviour>();
+
                 SpheresList = FindObjectsOfType<ParticleBehaviour>().ToList();
                 verts = SpheresList.ToArray();
                 _sphere.transform.position = new Vector3(x * 2.5f, y * 2.5f, 0);
                 _sphere.transform.parent = transform;
-                _sphere.name = string.Format("{0}{1}", "Particle: ", i++);
+                _sphere.name = string.Format("{0}{1}", "Particle: ", iD++);
+
+                verts[(y * Size + x )] = beh;
                 yield return new WaitForSeconds(0.05f);
             }
-           
+            for (var i = 0; i < size2 - 1; i++)
+            {
+                if (i > (Size * (Size - 1)) - 1)
+                {
+                    var go = new GameObject();
+                    var sD = go.AddComponent<SpringDamperBehavior>();
+                    go.transform.parent = transform;
+                    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
+                    sD.p1 = verts[i];
+                    sD.p2 = verts[i + 1];
+                }
+                else if (i % Size == 0)
+                {
+                    var go = new GameObject();
+                    var sD = go.AddComponent<SpringDamperBehavior>();
+                    go.transform.parent = transform;
+                    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
+                    sD.p1 = verts[i];
+                    sD.p2 = verts[i + 1];
+                }
+            }
         }
     }
 }
