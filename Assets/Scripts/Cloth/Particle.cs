@@ -68,7 +68,10 @@ namespace HookesLaw
         public Vector3 Update(float deltaTime)
         {
             if (IsAnchor)
+            {
+                Force = Vector3.zero;
                 return Postion;
+            }
             Acceleration = Force / Mass;
             Force = Vector3.zero;
             Velocity += Acceleration * deltaTime;
