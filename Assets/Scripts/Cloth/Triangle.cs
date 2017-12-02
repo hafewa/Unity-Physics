@@ -21,8 +21,22 @@ namespace HookesLaw
 
         public void AerodynamicForce(Vector3 Force)
         {
+            var crossA = Particle2.Postion - Particle1.Postion;
+            var crossB = Particle3.Postion - Particle1.Postion;
+
             var v = (Particle1.Velocity + Particle2.Velocity + Particle3.Velocity) / 3f - Force;
-           // var ao = ((Particle2.Postion - Particle1.Postion) (Particle3.Postion - Particle1.Postion));
+
+            var a0 = .5f * Vector3.Cross(crossA.normalized, crossB.normalized).magnitude;
+
+            var n = Vector3.Cross(crossA, crossB.normalized);
+
+            var a = a0 * (Vector3.Dot(v, n) / v.magnitude);
+
+            var force = -.5f * p * (v.magnitude * v.magnitude) * Cd * a * n;
+
+            Particle1.AddForce(force / 3f);
+            Particle2.AddForce(force / 3f);
+            Particle3.AddForce(force / 3f);
         }
     }
 }

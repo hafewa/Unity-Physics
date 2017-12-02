@@ -7,18 +7,23 @@ namespace HookesLaw
     public class SpringDriver : MonoBehaviour
     {
         private GameObject _sphere;
-        public bool GravityAll;
+        public bool GravityAll, ApplyWind;
         public float ks, lo, kd;
-        [HideInInspector] public List<ParticleBehaviour> pbs = new List<ParticleBehaviour>();
+        public Vector3 Wind;
+        [HideInInspector]
+        public List<ParticleBehaviour> pbs = new List<ParticleBehaviour>();
         public int Size;
         private int Size2;
-        [HideInInspector] public List<SpringDamperBehavior> sbs = new List<SpringDamperBehavior>();
+        [HideInInspector]
+        public List<SpringDamperBehavior> sbs = new List<SpringDamperBehavior>();
         public List<Triangle> trianglesList = new List<Triangle>();
-        [HideInInspector] public ParticleBehaviour[] verts;
+        [HideInInspector]
+        public ParticleBehaviour[] verts;
 
         // Use this for initialization
         private void Start()
         {
+            Wind = new Vector3(5, 0, 5);
             ks = 10f;
             lo = 3;
             kd = .5f;
@@ -55,6 +60,11 @@ namespace HookesLaw
                 //p.particle.IsAnchor = AnchorAll;
                 p.particle.IsGravity = GravityAll;
             }
+            foreach (var triangle in trianglesList)
+            {
+                if (ApplyWind)
+                    triangle.AerodynamicForce(Wind);
+            }
             foreach (var p in sbs)
             {
                 p.SpringDot(p.p1.particle, p.p2.particle, ks, lo, kd);
@@ -83,6 +93,10 @@ namespace HookesLaw
             iD = 0;
             for (var i = 0; i < Size2 - 1; i++)
             {
+                verts[0].particle.IsAnchor = true;
+                verts[Size - 1].particle.IsAnchor = true;
+                verts[Size2 - Size].particle.IsAnchor = true;
+                verts[Size2 - 1].particle.IsAnchor = true;
                 //Horizontal
                 if (i % Size != Size - 1)
                 {
@@ -96,6 +110,7 @@ namespace HookesLaw
                 //Vertical
                 if (i < Size2 - Size)
                 {
+
                     var go = new GameObject();
                     var sD = go.AddComponent<SpringDamperBehavior>();
                     go.transform.parent = transform;
