@@ -102,7 +102,7 @@ namespace HookesLaw
                 }
             iD = 0;
             for (var i = 0; i < Size2 - 1; i++)
-            {    
+            {
                 //Horizontal
                 if (i % Size != Size - 1)
                 {
@@ -147,26 +147,26 @@ namespace HookesLaw
 
                 //Bending Springs
                 //Horizontal
-                //if (i % Size != Size - 1)
-                //{
-                //    var go = new GameObject();
-                //    var sD = go.AddComponent<SpringDamperBehavior>();
-                //    go.transform.parent = transform;
-                //    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
-                //    sD.p1 = verts[i];
-                //    sD.p2 = verts[i + 1];
-                //}
+                if (i % Size != Size - 1 && i % Size != Size - 2)
+                {
+                    var go = new GameObject();
+                    var sD = go.AddComponent<SpringDamperBehavior>();
+                    go.transform.parent = transform;
+                    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
+                    sD.p1 = verts[i];
+                    sD.p2 = verts[i + 2];
+                }
 
-                ////Vertical
-                //if (i < Size2 - Size)
-                //{
-                //    var go = new GameObject();
-                //    var sD = go.AddComponent<SpringDamperBehavior>();
-                //    go.transform.parent = transform;
-                //    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
-                //    sD.p1 = verts[i];
-                //    sD.p2 = verts[i + Size];
-                //}
+                //Vertical
+                if (i < Size2 - Size * 2)
+                {
+                    var go = new GameObject();
+                    var sD = go.AddComponent<SpringDamperBehavior>();
+                    go.transform.parent = transform;
+                    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
+                    sD.p1 = verts[i];
+                    sD.p2 = verts[i + (Size * 2)];
+                }
             }
         }
     }

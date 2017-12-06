@@ -25,6 +25,7 @@ namespace HookesLaw
             _ks = springConstant;
             _lo = restLength;
             _kd = springDamper;
+            _lo = Vector3.Distance(_p1.Position, _p2.Position);
         }
     }
 }

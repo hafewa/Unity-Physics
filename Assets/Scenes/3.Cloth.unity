@@ -303,18 +303,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d2a75a9911acb428e2acbaad4ce28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GravityAll: 0
+  GravForce: 0.05
+  GravityAll: 1
   ApplyWind: 0
   LockTopLeft: 1
-  LockTopRight: 0
-  LockBotLeft: 1
+  LockTopRight: 1
+  LockBotLeft: 0
   LockBotRight: 0
   ks: 0
   lo: 0
   kd: 0
   Wind: {x: 0, y: 0, z: 0}
   pbs: []
-  Size: 10
+  Size: 15
   sbs: []
   trianglesList: []
   verts: []
