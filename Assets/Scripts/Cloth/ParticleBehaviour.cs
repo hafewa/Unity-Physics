@@ -19,11 +19,5 @@ namespace HookesLaw
         {
             transform.position = particle.Update(Time.fixedDeltaTime);
         }
-        void OnMouseDrag()
-        {
-            var mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, particle.Position.z);
-            var objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            particle.Position = objPosition;
-        }
     }
 }

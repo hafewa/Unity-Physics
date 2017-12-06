@@ -7,6 +7,7 @@ namespace HookesLaw
     public class SpringDriver : MonoBehaviour
     {
         private GameObject _sphere;
+        public float GravForce;
         public bool GravityAll, ApplyWind, LockTopLeft, LockTopRight, LockBotLeft, LockBotRight;
         public float ks, lo, kd;
         public Vector3 Wind;
@@ -64,7 +65,7 @@ namespace HookesLaw
             foreach (var p in pbs)
             {
                 if (p.particle.IsGravity)
-                    p.particle.AddForce(new Vector3(0, -9.81f, 0));
+                    p.particle.AddForce(new Vector3(0, -9.81f, 0) * GravForce);
                 //p.particle.IsAnchor = AnchorAll;
                 p.particle.IsGravity = GravityAll;
             }
@@ -90,9 +91,10 @@ namespace HookesLaw
             for (var y = 0; y < Size; y++)
                 for (var x = 0; x < Size; x++)
                 {
-                    _sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    _sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     _sphere.transform.position = new Vector3(x * 2.5f, y * 2.5f, 0);
-                    //DestroyImmediate(_sphere.GetComponent<Renderer>());
+                    DestroyImmediate(_sphere.GetComponent<Renderer>());
+                    DestroyImmediate(_sphere.GetComponent<BoxCollider>());
                     var beh = _sphere.AddComponent<ParticleBehaviour>();
                     _sphere.transform.parent = transform;
                     _sphere.name = string.Format("{0}{1}", "Particle: ", iD++);
@@ -100,8 +102,7 @@ namespace HookesLaw
                 }
             iD = 0;
             for (var i = 0; i < Size2 - 1; i++)
-            {
-               
+            {    
                 //Horizontal
                 if (i % Size != Size - 1)
                 {
@@ -115,7 +116,6 @@ namespace HookesLaw
                 //Vertical
                 if (i < Size2 - Size)
                 {
-
                     var go = new GameObject();
                     var sD = go.AddComponent<SpringDamperBehavior>();
                     go.transform.parent = transform;
@@ -144,9 +144,21 @@ namespace HookesLaw
                     sD.p2 = verts[i + 1 + Size];
                 }
 
-                #region Old
 
-                //if ((i + 1) % Size == 0)
+                //Bending Springs
+                //Horizontal
+                //if (i % Size != Size - 1)
+                //{
+                //    var go = new GameObject();
+                //    var sD = go.AddComponent<SpringDamperBehavior>();
+                //    go.transform.parent = transform;
+                //    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
+                //    sD.p1 = verts[i];
+                //    sD.p2 = verts[i + 1];
+                //}
+
+                ////Vertical
+                //if (i < Size2 - Size)
                 //{
                 //    var go = new GameObject();
                 //    var sD = go.AddComponent<SpringDamperBehavior>();
@@ -154,16 +166,7 @@ namespace HookesLaw
                 //    go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
                 //    sD.p1 = verts[i];
                 //    sD.p2 = verts[i + Size];
-
-                //    var go2 = new GameObject();
-                //    var sD2 = go2.AddComponent<SpringDamperBehavior>();
-                //    go2.transform.parent = transform;
-                //    go2.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
-                //    sD2.p1 = verts[i];
-                //    sD2.p2 = verts[i - 1 + Size];
                 //}
-
-                #endregion
             }
         }
     }

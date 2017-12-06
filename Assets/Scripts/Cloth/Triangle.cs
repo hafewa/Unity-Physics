@@ -28,7 +28,7 @@ namespace HookesLaw
 
             var a0 = .5f * Vector3.Cross(crossA.normalized, crossB.normalized).magnitude;
 
-            var n = Vector3.Cross(crossA, crossB.normalized);
+            var n = Vector3.Cross(crossA, crossB).normalized;
 
             var a = a0 * (Vector3.Dot(v, n) / v.magnitude);
 
