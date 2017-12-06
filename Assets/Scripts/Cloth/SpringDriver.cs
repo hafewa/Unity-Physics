@@ -48,14 +48,28 @@ namespace HookesLaw
         // Update is called once per frame
         private void Update()
         {
+            #region Anchors
             if (LockBotLeft)
                 verts[0].particle.IsAnchor = true;
+            else if (!LockBotLeft)
+                verts[0].particle.IsAnchor = false;
+
             if (LockBotRight)
                 verts[Size - 1].particle.IsAnchor = true;
+            else if (!LockBotRight)
+                verts[Size - 1].particle.IsAnchor = false;
+
             if (LockTopLeft)
                 verts[Size2 - Size].particle.IsAnchor = true;
+            else if (!LockTopLeft)
+                verts[Size2 - Size].particle.IsAnchor = false;
+
             if (LockTopRight)
                 verts[Size2 - 1].particle.IsAnchor = true;
+            else if (!LockTopRight)
+                verts[Size2 - 1].particle.IsAnchor = false;
+            #endregion
+
             foreach (var sd in sbs)
             {
                 sd.springConstant = ks;
