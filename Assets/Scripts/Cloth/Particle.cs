@@ -10,7 +10,7 @@ namespace HookesLaw
 
         [SerializeField] private Vector3 _force;
 
-        [SerializeField] private Vector3 _postion;
+        [SerializeField] private Vector3 _position;
 
         [SerializeField] private Vector3 _velocity;
 
@@ -19,10 +19,10 @@ namespace HookesLaw
         public bool IsAnchor;
         public bool IsGravity;
 
-        public Vector3 Postion
+        public Vector3 Position
         {
-            get { return _postion; }
-            set { _postion = value; }
+            get { return _position; }
+            set { _position = value; }
         }
 
         public Vector3 Velocity
@@ -45,7 +45,7 @@ namespace HookesLaw
 
         public Particle()
         {
-            Postion = Vector3.zero;
+            Position = Vector3.zero;
             Velocity = Vector3.zero;
             Acceleration = Vector3.zero;
             Mass = 1;
@@ -57,7 +57,7 @@ namespace HookesLaw
             Mass = m;
             Acceleration = Vector3.zero;
             Velocity = v;
-            Postion = p;
+            Position = p;
         }
 
         public void AddForce(Vector3 f)
@@ -70,13 +70,13 @@ namespace HookesLaw
             if (IsAnchor)
             {
                 Force = Vector3.zero;
-                return Postion;
+                return Position;
             }
             Acceleration = Force / Mass;
             Force = Vector3.zero;
             Velocity += Acceleration * deltaTime;
-            Postion += Velocity * deltaTime;
-            return Postion;
+            Position += Velocity * deltaTime;
+            return Position;
         }
     }
 }

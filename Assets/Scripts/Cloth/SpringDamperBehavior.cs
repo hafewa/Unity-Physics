@@ -17,11 +17,11 @@ namespace HookesLaw
 
         public void Spring(Particle a, Particle b)
         {
-            var dir = b.Postion - a.Postion;
+            var dir = b.Position - a.Position;
 
             var dirNormal = dir.normalized;
 
-            var dist = (a.Postion - b.Postion).magnitude;
+            var dist = (a.Position - b.Position).magnitude;
 
             var L = sd._lo - dist;
 
@@ -37,7 +37,7 @@ namespace HookesLaw
             sd._lo = restL;
             sd._kd = springD;
 
-            var dir = b.Postion - a.Postion;
+            var dir = b.Position - a.Position;
             var l = dir.magnitude;
             var e = dir / l;
 

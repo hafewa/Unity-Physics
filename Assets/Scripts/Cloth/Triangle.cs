@@ -21,8 +21,8 @@ namespace HookesLaw
 
         public void AerodynamicForce(Vector3 Force)
         {
-            var crossA = Particle2.Postion - Particle1.Postion;
-            var crossB = Particle3.Postion - Particle1.Postion;
+            var crossA = Particle2.Position - Particle1.Position;
+            var crossB = Particle3.Position - Particle1.Position;
 
             var v = (Particle1.Velocity + Particle2.Velocity + Particle3.Velocity) / 3f - Force;
 
