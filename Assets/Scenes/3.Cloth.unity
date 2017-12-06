@@ -291,6 +291,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GravityAll: 0
   ApplyWind: 0
+  LockTopLeft: 0
+  LockTopRight: 0
+  LockBotLeft: 0
+  LockBotRight: 0
   ks: 0
   lo: 0
   kd: 0

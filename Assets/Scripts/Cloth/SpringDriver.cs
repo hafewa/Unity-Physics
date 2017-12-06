@@ -7,7 +7,7 @@ namespace HookesLaw
     public class SpringDriver : MonoBehaviour
     {
         private GameObject _sphere;
-        public bool GravityAll, ApplyWind;
+        public bool GravityAll, ApplyWind, LockTopLeft, LockTopRight, LockBotLeft, LockBotRight;
         public float ks, lo, kd;
         public Vector3 Wind;
         [HideInInspector]
@@ -47,6 +47,14 @@ namespace HookesLaw
         // Update is called once per frame
         private void Update()
         {
+            if (LockBotLeft)
+                verts[0].particle.IsAnchor = true;
+            if (LockBotRight)
+                verts[Size - 1].particle.IsAnchor = true;
+            if (LockTopLeft)
+                verts[Size2 - Size].particle.IsAnchor = true;
+            if (LockTopRight)
+                verts[Size2 - 1].particle.IsAnchor = true;
             foreach (var sd in sbs)
             {
                 sd.springConstant = ks;
@@ -68,7 +76,7 @@ namespace HookesLaw
             foreach (var p in sbs)
             {
                 p.SpringDot(p.p1.particle, p.p2.particle, ks, lo, kd);
-                Debug.DrawLine(p.p1.particle.Postion, p.p2.particle.Postion);
+                Debug.DrawLine(p.p1.particle.Position, p.p2.particle.Position);
             }
             foreach (var p in pbs)
                 p.UpdateParticle();
@@ -84,7 +92,7 @@ namespace HookesLaw
                 {
                     _sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     _sphere.transform.position = new Vector3(x * 2.5f, y * 2.5f, 0);
-                    DestroyImmediate(_sphere.GetComponent<Renderer>());
+                    //DestroyImmediate(_sphere.GetComponent<Renderer>());
                     var beh = _sphere.AddComponent<ParticleBehaviour>();
                     _sphere.transform.parent = transform;
                     _sphere.name = string.Format("{0}{1}", "Particle: ", iD++);
@@ -93,10 +101,7 @@ namespace HookesLaw
             iD = 0;
             for (var i = 0; i < Size2 - 1; i++)
             {
-                verts[0].particle.IsAnchor = true;
-                verts[Size - 1].particle.IsAnchor = true;
-                verts[Size2 - Size].particle.IsAnchor = true;
-                verts[Size2 - 1].particle.IsAnchor = true;
+               
                 //Horizontal
                 if (i % Size != Size - 1)
                 {
