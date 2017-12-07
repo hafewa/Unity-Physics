@@ -17,7 +17,9 @@ namespace HookesLaw
         // Update is called once per frame
         public void UpdateParticle()
         {
-            transform.position = particle.Update(Time.deltaTime);
+            particle.Position = transform.position;
+            particle.Update(Time.deltaTime);
+            transform.position = particle.Position;
         }
     }
 }

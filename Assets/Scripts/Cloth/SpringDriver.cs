@@ -116,6 +116,7 @@ namespace HookesLaw
                     verts[y * Size + x] = beh;
                 }
             iD = 0;
+            pbs.AddRange(verts);
             for (var i = 0; i < Size2 - 1; i++)
             {
                 //Horizontal
@@ -206,18 +207,18 @@ namespace HookesLaw
 
         public void SetTriangles()
         {
-            pbs = FindObjectsOfType<ParticleBehaviour>().ToList();
+           // pbs = FindObjectsOfType<ParticleBehaviour>().ToList();
             sbs = FindObjectsOfType<SpringDamperBehavior>().ToList();
             for (var i = 0; i < (Size * Size) - Size; i++)
             {
                 if (i < Size2 - Size && i % Size != Size - 1)
                 {
-                    trianglesList.Add(new Triangle(pbs[i].particle,
-                        pbs[i + 1].particle,
-                        pbs[i + Size].particle));
                     trianglesList.Add(new Triangle(verts[i].particle,
-                        pbs[i + 1].particle,
-                        pbs[i + Size + 1].particle));
+                        verts[i + 1].particle,
+                        verts[i + Size].particle));
+                    trianglesList.Add(new Triangle(verts[i].particle,
+                        verts[i + 1].particle,
+                        verts[i + Size + 1].particle));
                 }
             }
         }
