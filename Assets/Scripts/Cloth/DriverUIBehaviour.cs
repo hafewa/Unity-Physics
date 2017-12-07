@@ -9,12 +9,13 @@ namespace HookesLaw
     {
         public Toggle GravityToggle, WindToggle, TopLeftToggle, TopRightToggle, BotLeftToggle, BotRightToggle;
         public Slider WindSlider, ConstantSlider, DamperSlider, ClothSizeSlider;
-
+        private Canvas canvas;
         public SpringDriver Driver;
 
         // Use this for initialization
         void Start()
         {
+            canvas = FindObjectOfType<Canvas>();
             Driver = FindObjectOfType<SpringDriver>();
             Driver.LockBotLeft = true;
             Driver.LockTopLeft = true;
@@ -43,6 +44,11 @@ namespace HookesLaw
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Cursor.visible = Cursor.visible == false;
+                canvas.enabled = Cursor.visible;
             }
 
             #region Toggles
