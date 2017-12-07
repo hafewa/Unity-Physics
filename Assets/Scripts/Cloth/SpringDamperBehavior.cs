@@ -8,7 +8,9 @@ namespace HookesLaw
 
         private SpringDamper sd;
 
-        public float springConstant, restLength, springDamper;
+        public float springConstant, springDamper;
+        [HideInInspector]
+        public float restLength;
         // Use this for initialization
         private void Start()
         {            
@@ -31,10 +33,9 @@ namespace HookesLaw
             b.AddForce(-force);
         }
 
-        public void SpringDot(Particle a, Particle b, float springK, float restL, float springD)
+        public void SpringDot(Particle a, Particle b, float springK, float springD)
         {
             sd._ks = springK;
-            //sd._lo = restL;
             sd._kd = springD;
 
             var dir = b.Position - a.Position;

@@ -9,7 +9,7 @@ namespace HookesLaw
         private GameObject _sphere;
         public float GravForce;
         public bool GravityAll, ApplyWind, LockTopLeft, LockTopRight, LockBotLeft, LockBotRight;
-        public float ks, lo, kd;
+        public float ks, kd;
         public Vector3 Wind;
         [HideInInspector]
         public List<ParticleBehaviour> pbs = new List<ParticleBehaviour>();
@@ -26,7 +26,6 @@ namespace HookesLaw
         {
             Wind = new Vector3(5, 0, 5);
             ks = 10f;
-            lo = 3;
             kd = .5f;
             Generate();
             pbs = FindObjectsOfType<ParticleBehaviour>().ToList();
@@ -73,7 +72,6 @@ namespace HookesLaw
             foreach (var sd in sbs)
             {
                 sd.springConstant = ks;
-                sd.restLength = lo;
                 sd.springDamper = kd;
             }
             foreach (var p in pbs)
@@ -90,8 +88,8 @@ namespace HookesLaw
             }
             foreach (var p in sbs)
             {
-                p.SpringDot(p.p1.particle, p.p2.particle, ks, lo, kd);
-                Debug.DrawLine(p.p1.particle.Position, p.p2.particle.Position);
+                p.SpringDot(p.p1.particle, p.p2.particle, ks, kd);
+                //Debug.DrawLine(p.p1.particle.Position, p.p2.particle.Position);
             }
             foreach (var p in pbs)
                 p.UpdateParticle();
@@ -107,7 +105,7 @@ namespace HookesLaw
                 {
                     _sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     _sphere.transform.position = new Vector3(x * 2.5f, y * 2.5f, 0);
-                    DestroyImmediate(_sphere.GetComponent<Renderer>());
+                    //DestroyImmediate(_sphere.GetComponent<Renderer>());
                     DestroyImmediate(_sphere.GetComponent<BoxCollider>());
                     var beh = _sphere.AddComponent<ParticleBehaviour>();
                     _sphere.transform.parent = transform;
