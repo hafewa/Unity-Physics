@@ -587,9 +587,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 4fefe94d-814c-4984-af5b-14b40ccdd3da
+  cloudProjectId: d4faaa78-86c0-4115-8624-de5ec3f59256
   projectName: Unity-Physics (1)
-  organizationId: aie_software
+  organizationId: wdonray
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
