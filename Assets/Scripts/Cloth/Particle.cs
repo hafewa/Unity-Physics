@@ -76,6 +76,9 @@ namespace HookesLaw
             Force = Vector3.zero;
             Velocity += Acceleration * deltaTime;
             Position += Velocity * deltaTime;
+
+            if (Position.y <= -1)
+                _position.y = -1;
             return Position;
         }
     }

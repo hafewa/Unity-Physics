@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HookesLaw
 {
@@ -28,20 +29,7 @@ namespace HookesLaw
             ks = 10f;
             kd = .5f;
             Generate();
-            pbs = FindObjectsOfType<ParticleBehaviour>().ToList();
-            sbs = FindObjectsOfType<SpringDamperBehavior>().ToList();
-            for (var i = 0; i < (Size * Size) - Size; i++)
-            {
-                if (i < Size2 - Size && i % Size != Size - 1)
-                {
-                    trianglesList.Add(new Triangle(pbs[i].particle,
-                        pbs[i + 1].particle,
-                        pbs[i + Size].particle));
-                    trianglesList.Add(new Triangle(verts[i].particle,
-                        pbs[i + 1].particle,
-                        pbs[i + Size + 1].particle));
-                }
-            }
+            SetTriangles();
         }
 
         // Update is called once per frame
@@ -78,16 +66,31 @@ namespace HookesLaw
             {
                 if (p.particle.IsGravity)
                     p.particle.AddForce(new Vector3(0, -9.81f, 0) * GravForce);
-                //p.particle.IsAnchor = AnchorAll;
                 p.particle.IsGravity = GravityAll;
             }
+
             foreach (var triangle in trianglesList)
             {
                 if (ApplyWind)
                     triangle.AerodynamicForce(Wind);
             }
+            var removedList = new List<SpringDamperBehavior>();
+            foreach (var sd in sbs)
+            {
+                sd.SpringDot(sd.p1.particle, sd.p2.particle, ks, kd);
+                if (sd.DistanceBreak())
+                    removedList.Add(sd);
+            }
+            foreach (var p in removedList)
+            {
+                if (sbs.Contains(p))
+                    sbs.Remove(p);
+                DestroyImmediate(p.gameObject);
+            }
             foreach (var p in sbs)
             {
+                if (p == null)
+                    break;
                 p.SpringDot(p.p1.particle, p.p2.particle, ks, kd);
                 //Debug.DrawLine(p.p1.particle.Position, p.p2.particle.Position);
             }
@@ -178,6 +181,43 @@ namespace HookesLaw
                     go.name = string.Format("{0}{1}", "SDBehaviour: ", iD++);
                     sD.p1 = verts[i];
                     sD.p2 = verts[i + (Size * 2)];
+                }
+            }
+        }
+
+        public void ResetCloth()
+        {
+            foreach (var g in pbs)
+            {
+                DestroyImmediate(g.gameObject);
+            }
+            foreach (var t in sbs)
+            {
+                DestroyImmediate(t.gameObject);
+            }
+            pbs.Clear();
+            sbs.Clear();
+            trianglesList.Clear();
+            Generate();
+            SetTriangles();
+            foreach (var t in sbs)
+                t.Init();
+        }
+
+        public void SetTriangles()
+        {
+            pbs = FindObjectsOfType<ParticleBehaviour>().ToList();
+            sbs = FindObjectsOfType<SpringDamperBehavior>().ToList();
+            for (var i = 0; i < (Size * Size) - Size; i++)
+            {
+                if (i < Size2 - Size && i % Size != Size - 1)
+                {
+                    trianglesList.Add(new Triangle(pbs[i].particle,
+                        pbs[i + 1].particle,
+                        pbs[i + Size].particle));
+                    trianglesList.Add(new Triangle(verts[i].particle,
+                        pbs[i + 1].particle,
+                        pbs[i + Size + 1].particle));
                 }
             }
         }

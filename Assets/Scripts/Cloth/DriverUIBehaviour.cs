@@ -8,7 +8,7 @@ namespace HookesLaw
     public class DriverUIBehaviour : MonoBehaviour
     {
         public Toggle GravityToggle, WindToggle, TopLeftToggle, TopRightToggle, BotLeftToggle, BotRightToggle;
-        public Slider WindSlider, ConstantSlider, DamperSlider;
+        public Slider WindSlider, ConstantSlider, DamperSlider, ClothSizeSlider;
 
         public SpringDriver Driver;
 
@@ -33,6 +33,7 @@ namespace HookesLaw
             WindSlider.value = 5;
             ConstantSlider.value = 10;
             DamperSlider.value = .5f;
+            ClothSizeSlider.value = Driver.Size;
             Time.timeScale = 0;
         }
 
@@ -52,6 +53,8 @@ namespace HookesLaw
             Driver.LockBotLeft = BotLeftToggle.isOn;
             Driver.LockBotRight = BotRightToggle.isOn;
             #endregion
+
+            Driver.Size = (int)ClothSizeSlider.value;
 
             Driver.Wind.z = WindSlider.value;
             Driver.Wind.x = WindSlider.value;

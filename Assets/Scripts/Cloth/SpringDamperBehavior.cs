@@ -7,7 +7,6 @@ namespace HookesLaw
         public ParticleBehaviour p1, p2;
 
         private SpringDamper sd;
-
         public float springConstant, springDamper;
         [HideInInspector]
         public float restLength;
@@ -15,6 +14,11 @@ namespace HookesLaw
         private void Start()
         {            
             sd = new SpringDamper(p1.particle, p2.particle, springConstant, restLength, springDamper);            
+        }
+
+        public void Init()
+        {
+            sd = new SpringDamper(p1.particle, p2.particle, springConstant, restLength, springDamper);
         }
 
         public void Spring(Particle a, Particle b)
@@ -33,6 +37,12 @@ namespace HookesLaw
             b.AddForce(-force);
         }
 
+        public bool DistanceBreak()
+        {
+            if ((p2.particle.Position - p1.particle.Position).magnitude > 5 * sd._lo)
+                return true;
+            return false;
+        }
         public void SpringDot(Particle a, Particle b, float springK, float springD)
         {
             sd._ks = springK;
