@@ -60,7 +60,10 @@ namespace HookesLaw
 
             #endregion
 
-            CursorMovement();
+            if (!Cursor.visible)
+                CursorMovement();
+            else if (Cursor.visible)
+                mouse.SetActive(false);
 
             foreach (var sd in sbs)
             {
@@ -72,6 +75,8 @@ namespace HookesLaw
                 if (p.particle.IsGravity)
                     p.particle.AddForce(new Vector3(0, -9.81f, 0) * GravForce);
                 p.particle.IsGravity = GravityAll;
+                if (Cursor.visible)
+                    p.GetComponent<Renderer>().material.color = p.particle.IsAnchor ? Color.red : Color.green;
             }
 
             foreach (var triangle in trianglesList)
@@ -223,7 +228,7 @@ namespace HookesLaw
         private void CursorMovement()
         {
             var move = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 1);
-
+            mouse.SetActive(true);
             mouse.transform.position = (move - Input.mousePosition) * -0.15f;
             mouse.SetActive(Cursor.visible != true);
             foreach (var p in pbs)

@@ -79,6 +79,13 @@ namespace HookesLaw
 
             if (Position.y <= -1)
                 _position.y = -1;
+
+            if (Position.z >= 79)
+                _position.z = 79;
+
+            if (Position.x >= 74)
+                _position.x = 74;
+
             return Position;
         }
     }
