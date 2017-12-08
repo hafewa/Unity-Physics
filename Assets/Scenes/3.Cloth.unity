@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.38
+  m_AmbientIntensity: 3.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -4046,10 +4046,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 548903519}
   m_HandleRect: {fileID: 1876083975}
   m_Direction: 0
-  m_MinValue: 2
+  m_MinValue: 5
   m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

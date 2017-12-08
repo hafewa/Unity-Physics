@@ -240,10 +240,13 @@ namespace HookesLaw
                     p.GetComponent<Renderer>().material.color = Color.blue;
                     break;
                 }
-                if (Input.GetMouseButton(1) &&
+                if (Input.GetMouseButtonDown(1) &&
                     Vector3.Distance(mouse.transform.position, p.transform.position) < 1)
                 {
-                    p.particle.IsAnchor = true;
+                    if (!p.particle.IsAnchor)
+                        p.particle.IsAnchor = true;
+                    else if (p.particle.IsAnchor)
+                        p.particle.IsAnchor = false;
                     break;
                 }
                 p.GetComponent<Renderer>().material.color = p.particle.IsAnchor ? Color.red : Color.green;
