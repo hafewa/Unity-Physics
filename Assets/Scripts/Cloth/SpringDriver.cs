@@ -31,6 +31,7 @@ namespace HookesLaw
             mouse = Instantiate(cursorPrefab,
                 new Vector3(Screen.width / 2, Screen.height / 2, 0),
                 Quaternion.identity);
+            DestroyImmediate(mouse.GetComponent<SphereCollider>());
         }
 
         // Update is called once per frame
@@ -233,15 +234,14 @@ namespace HookesLaw
             mouse.SetActive(Cursor.visible != true);
             foreach (var p in pbs)
             {
-                if (Input.GetMouseButton(0) &&
-                    Vector3.Distance(mouse.transform.position, p.transform.position) < 1)
+                var dist = Vector3.Distance(mouse.transform.position, p.transform.position) < 1;
+                if (Input.GetMouseButton(0) && dist)
                 {
                     p.transform.position = mouse.transform.position;
                     p.GetComponent<Renderer>().material.color = Color.blue;
                     break;
                 }
-                if (Input.GetMouseButtonDown(1) &&
-                    Vector3.Distance(mouse.transform.position, p.transform.position) < 1)
+                if (Input.GetMouseButtonDown(1) && dist)
                 {
                     if (!p.particle.IsAnchor)
                         p.particle.IsAnchor = true;
