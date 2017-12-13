@@ -4794,7 +4794,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Space = Pause or Play
 
-    Mouse Whell = Zoom
+    Mouse Wheel = Zoom
 
     Middle Mouse = Pan
 

@@ -16,7 +16,8 @@ namespace BoidsSpace
         public FloatVariable BFac;
         public FloatVariable Count;
         public Transform target;
-        
+
+        private GameObject mouse;
         [SerializeField]
         private List<Agent> _agents = new List<Agent>();
 
@@ -34,8 +35,24 @@ namespace BoidsSpace
             agents.ForEach(a => neighbors.Add(a as Boid));
             return neighbors;
         }
+
+        void Start()
+        {
+            mouse = target.gameObject;
+        }
         void Update()
         {
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Cursor.visible = Cursor.visible == false;
+            }
+
+            if (!Cursor.visible)
+                CursorMovement();
+            else if (Cursor.visible)
+                mouse.SetActive(false);
+
             if (!isReady) return;
             foreach (var agent in _agents)
             {
@@ -65,6 +82,14 @@ namespace BoidsSpace
                 }
                
             }
+        }
+
+        private void CursorMovement()
+        {
+            var move = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 1);
+            mouse.SetActive(true);
+            mouse.transform.position = (move - Input.mousePosition) * -0.15f;
+            mouse.SetActive(Cursor.visible != true);
         }
         #region Algorithm
         public Vector3 Avoid(Boid b)
