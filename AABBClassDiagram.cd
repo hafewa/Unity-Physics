@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Collision.BoxBehaviour">
+    <Position X="2.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\BoxBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.AABB">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABBAAAwAAEAAAAEQAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\Utilites.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.Utilites">
+    <Position X="2.25" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\Utilites.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.SortAndSweep">
+    <Position X="4.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAACAAAAAAQAAAAACAAAAAEAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\SortAndSweep.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.CollisionCount">
+    <Position X="2.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\CollisionCount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.BoxColliderD">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABCAAAAAAAAAAAEAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\BoxColliderD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision.CheckCollision">
+    <Position X="4.75" Y="3.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Collision.CheckCollision.Axis" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Collision\CheckCollision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="Collision.CheckCollision.ReportedPair" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Collision\CheckCollision.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAAAAAAAAAAIAAAAAAAAAAAAAAEQAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Collision\CheckCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

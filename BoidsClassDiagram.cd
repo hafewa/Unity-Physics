@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="BoidsSpace.Agent">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAIAAAQgAAFEAAAAQAAAAAAAAAAGgACMCAE=</HashCode>
+      <FileName>Assets\Scripts\Boids\Agent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.AgentBehaviour">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\AgentBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.Utility">
+    <Position X="5.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\AgentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.AgentFactory">
+    <Position X="5.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAACAAAAAAAAEAACQAAABAAEAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\AgentFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AvoidButton">
+    <Position X="8.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAE=</HashCode>
+      <FileName>Assets\Scripts\Boids\AvoidButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.Boid">
+    <Position X="3" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\Boid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.BoidBehaviour">
+    <Position X="0.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABCAAAAAAAAAAIAAAAAAAAAAAIAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\BoidBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoundaryBehaviour">
+    <Position X="5.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\BoundaryBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloatVariable">
+    <Position X="8.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\FloatVariable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoidsSpace.FlockingBehaviour">
+    <Position X="10.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQASCAAABAAISAEAEQAQAEJAACAIAAAAAAQCgA=</HashCode>
+      <FileName>Assets\Scripts\Boids\FlockingBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextBehaviour">
+    <Position X="8.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgAAAAAAAAAAAAAAAAAIAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Boids\TextBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
