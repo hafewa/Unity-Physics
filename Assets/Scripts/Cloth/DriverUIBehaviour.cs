@@ -17,7 +17,7 @@ namespace HookesLaw
         {
             canvas = FindObjectOfType<Canvas>();
             Driver = FindObjectOfType<SpringDriver>();
-            Driver.LockBotLeft = true;
+            Driver.LockTopRight = true;
             Driver.LockTopLeft = true;
             Driver.ApplyWind = true;
             Driver.GravityAll = true;
